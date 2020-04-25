@@ -1,0 +1,88 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.board {
+  position: relative;
+  margin: 10px auto;
+  width: 630px;
+  height: 670px;
+}
+
+.board-content {
+  display: grid;
+  grid-template-columns: 150px 150px 150px 150px;
+  grid-template-rows: 150px 150px 150px 150px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+
+  -webkit-perspective: 1200px;
+  -moz-perspective: 1200px;
+  -ms-perspective: 1200px;
+  perspective: 1200px;
+  animation: fadein 3s;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0, 1.62);
+}
+
+.board-footer {
+  font-size: 22px;
+  text-align: center;
+  color: #fff;
+  position: absolute;
+  bottom: calc(50% - 65px);
+  left: 0;
+  right: 0;
+}
+
+.board-content + .board-footer {
+  font-size: 14px;
+  color: #000;
+  position: relative;
+  bottom: 0;
+}
+
+.board-cover {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 40px);
+  background: #030303c9;
+}
+.d-inline-block {
+  display: inline-block;
+}
+
+@media (max-width: 700px) {
+  .board {
+    width: 335px;
+    height: 375px;
+    padding: 0;
+  }
+  .board-content {
+    grid-template-columns: 80px 80px 80px 80px;
+    grid-template-rows: 80px 80px 80px 80px;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+  }
+
+  :host::ng-deep .card {
+    .content {
+      font-size: 17px !important;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .board {
+    width: 320px;
+    height: 360px;
+  }
+  .board-content {
+    grid-template-columns: 76px 76px 76px 76px;
+    grid-template-rows: 76px 76px 76px 76px;
+  }
+}

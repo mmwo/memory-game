@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    @-webkit-keyframes show {
+      0% {
+        -webkit-transform: rotateY(0deg);
+      }
+      100% {
+        -webkit-transform: rotateY(-180deg);
+      }
+    }
+
+    @-webkit-keyframes hide {
+      from {
+        -webkit-transform: rotateY(0deg);
+      }
+      to {
+        -webkit-transform: rotateY(180deg);
+      }
+    }
+
+    .container {
+      margin: 50px auto;
+      width: 640px;
+      height: 640px;
+      box-sizing: content-box;
+      padding: 15px;
+      -webkit-perspective: 1200px;
+      -moz-perspective: 1200px;
+      -ms-perspective: 1200px;
+      perspective: 1200px;
+      /*background: rgba(0, 0, 0, 0.5);*/
+    }
+
+    .content {
+      visibility: hidden;
+      font-size: 33px;
+      color: grey;
+      text-align: center;
+      background: #fff;
+      width: 90%;
+      height: 90%;
+      margin: 5%;
+      line-height: 120px;
+    }
+
+    .item {
+      box-shadow: inset 0px 0 20px 0px #b9cef3;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card {
+      float: left;
+      width: 140px;
+      height: 140px;
+      margin: 10px;
+      background: #5076b9;
+      transform: rotateY(180deg);
+
+    }
+
+    .card:before {
+      height: 100px;
+      content: "";
+      width: 235px;
+      transform: rotate(45deg);
+      display: block;
+      transition: 0.5s;
+      background: rgba(255, 251, 251, 0.1);
+      box-shadow: -14px 14px 20px 0px rgba(226, 226, 226, 0.1);
+    }
+
+    .card:hover:before {
+      width: 400px;
+      background: rgba(255, 255, 255, 0.09);
+      box-shadow: -20px 20px 20px 0px rgba(226, 226, 226, 0.1);
+    }
+
+    .item:hover {
+      box-shadow: inset 0px 0 40px 0px #dfebff8c;
+    }
+
+    .card.reveal .content {
+      visibility: visible;
+      transform: rotateY(-180deg);
+    }
+
+    .card.reveal:before, .card.show:before {
+      display: none;
+    }
+
+    .card.reveal {
+      box-shadow: none;
+      background: none;
+    }
+
+    .show {
+      -webkit-animation-name: spinner;
+      -webkit-animation-timing-function: linear;
+      -webkit-animation-duration: 0.5s;
+      -webkit-transform-style: preserve-3d;
+      animation-name: show;
+      animation-timing-function: linear;
+      animation-duration: 0.5s;
+    }
+
+    .hide {
+      -webkit-animation-name: spinner;
+      -webkit-animation-timing-function: linear;
+      -webkit-animation-duration: 0.5s;
+      -webkit-transform-style: preserve-3d;
+      animation-name: hide;
+      animation-timing-function: linear;
+      animation-duration: 0.5s;
+      transform-style: preserve-3d
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let shown = [], timeout = null;
+
+      function show(card) {
+        shown.push(card);
+        card.className += " show";
+        setTimeout(() => card.className = card.className.replace('show', ''), 700);
+        setTimeout(() => card.className += ' reveal', 350);
+      }
+
+      function hide(card) {
+        card.className += " hide";
+        setTimeout(() => card.className = card.className.replace('hide', ''), 700);
+        setTimeout(() => card.className = card.className.replace('reveal', ''), 350);
+      }
+
+
+      document.querySelectorAll('.card').forEach(card => card.addEventListener('click', () => {
+        if (card.className.match('show|hide|reveal') || shown.length === 2) {
+          return;
+        }
+        show(card);
+
+        if (timeout) {
+          clearTimeout(timeout);
+        }
+
+        timeout = setTimeout(() => {
+          shown.forEach(hide);
+          shown = [];
+        }, 3000);
+
+      }));
+    });
+  </script>
+</head>
+<body>
+<div class="container ">
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+  <div class="card item">
+    <div class="content">text</div>
+  </div>
+</div>
+</body>
+</html>

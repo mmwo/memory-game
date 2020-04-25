@@ -1,0 +1,5 @@
+<div class="card item noselect" [ngClass]="{ show: show, hide: hide, reveal: revealed }" (click)="onClick()">
+  <div class="content flex-center">
+    <p>{{ card ? card.value : '' }}</p>
+  </div>
+</div>

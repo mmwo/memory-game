@@ -1,0 +1,25 @@
+<div class="board">
+  <div class="board-cover flex-center" *ngIf="isCompleted$ | async; else game">
+    <button mat-raised-button color="primary" class="mat-button-bigger pointer" (click)="playAgain($event)">
+      <span translate>Play again</span>
+    </button>
+  </div>
+  <ng-template #game>
+    <div class="board-content">
+      <app-card
+        *ngFor="let card of cards$ | async; trackBy: card?.id"
+        [card]="card"
+        (clicked)="onCardClick($event)"
+      ></app-card>
+    </div>
+  </ng-template>
+
+  <div class="board-footer">
+    <p class="d-inline-block">
+      {{ 'Checks' | translate }}
+      : {{ moves$ | async }}
+    </p>
+    &nbsp;
+    <app-timer class="d-inline-block " #timer>{{ 'Time' | translate }}:&nbsp;</app-timer>
+  </div>
+</div>
