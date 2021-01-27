@@ -1,11 +1,11 @@
-<div class="board">
+<div class="board" appSizer="{{ selected.size }}">
   <div class="board-cover flex-center" *ngIf="isCompleted$ | async; else game">
     <button mat-raised-button color="primary" class="mat-button-bigger pointer" (click)="playAgain($event)">
       <span translate>Play again</span>
     </button>
   </div>
   <ng-template #game>
-    <div class="board-content">
+    <div class="board-content {{ 'size' + selected.size }}">
       <app-card
         *ngFor="let card of cards$ | async; trackBy: card?.id"
         [card]="card"

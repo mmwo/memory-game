@@ -1,5 +1,27 @@
 <div class="card item noselect" [ngClass]="{ show: show, hide: hide, reveal: revealed }" (click)="onClick()">
   <div class="content flex-center">
-    <p>{{ card ? card.value : '' }}</p>
+    <svg
+      version="1.1"
+      id="banner"
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="xMinYMin slice"
+      xml:space="preserve"
+    >
+      <text
+        id="dynamictext"
+        x="50%"
+        y="50%"
+        dominant-baseline="middle"
+        text-anchor="middle"
+        font-family="Roboto"
+        color="grey"
+        style="font-size:16px;fill:grey"
+      >
+        {{ card ? card.value : '' }}
+      </text>
+    </svg>
   </div>
 </div>

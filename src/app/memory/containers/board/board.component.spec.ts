@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { CardModel } from '@app/memory/models';
 import { By } from '@angular/platform-browser';
+import { SizerDirective } from '@app/memory/directives/sizer.directive';
 
 function setTimeoutPromise(milliseconds: number): Promise<void> {
   return new Promise(resolve => {
@@ -26,6 +27,7 @@ function setTimeoutPromise(milliseconds: number): Promise<void> {
 describe('BoardComponent', () => {
   let component: BoardComponent;
   let fixture: ComponentFixture<BoardComponent>;
+
   const initialCards = [
     new CardModel('val1', 'g1'),
     new CardModel('val1', 'g1'),
@@ -58,12 +60,10 @@ describe('BoardComponent', () => {
         FlexLayoutModule,
         MaterialModule
       ],
-      declarations: [BoardComponent, CardComponent, TimerComponent, TimeFormatPipe],
+      declarations: [BoardComponent, CardComponent, TimerComponent, TimeFormatPipe, SizerDirective],
       providers: [{ provide: BoardService, useValue: mockedBoardService }]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     Object.defineProperty(window, 'matchMedia', {
       value: jest.fn(() => {
         return {
@@ -77,7 +77,7 @@ describe('BoardComponent', () => {
     fixture = TestBed.createComponent(BoardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -116,27 +116,12 @@ describe('BoardComponent', () => {
     expect(cardElements.length).toEqual(initialCards.length);
   }));
 
-  it('should trigger buildBoard on Play again', async(async () => {
-    moves$.next(0);
-    fixture.detectChanges();
-    expect(mockedBoardService.buildBoard).toHaveBeenCalledTimes(1);
-
-    isGameCompleted$.next(true);
-    await setTimeoutPromise(2);
-    fixture.detectChanges();
-    const playButton = fixture.nativeElement.querySelector('.board-cover button');
-    playButton.click();
-    fixture.detectChanges();
-
-    expect(mockedBoardService.buildBoard).toHaveBeenCalledTimes(2);
-  }));
-
   it('should trigger cardRevealed when clicked on it', async(async () => {
     moves$.next(0);
     fixture.detectChanges();
 
     isGameCompleted$.next(false);
-    await setTimeoutPromise(2);
+    await setTimeoutPromise(5);
     fixture.detectChanges();
 
     cards$.next(initialCards);
@@ -145,5 +130,20 @@ describe('BoardComponent', () => {
     const cardElements: CardComponent = fixture.debugElement.query(By.directive(CardComponent)).componentInstance;
     cardElements.onClick();
     expect(mockedBoardService.revealCard).toHaveBeenCalledTimes(1);
+  }));
+
+  it('should trigger buildBoard on Play again', async(async () => {
+    moves$.next(0);
+    fixture.detectChanges();
+    expect(mockedBoardService.buildBoard).toHaveBeenCalledTimes(1);
+
+    isGameCompleted$.next(true);
+    await setTimeoutPromise(5);
+    fixture.detectChanges();
+    const playButton = fixture.nativeElement.querySelector('.board-cover button');
+    playButton.click();
+    fixture.detectChanges();
+
+    expect(mockedBoardService.buildBoard).toHaveBeenCalledTimes(2);
   }));
 });

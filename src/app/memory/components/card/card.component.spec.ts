@@ -28,7 +28,7 @@ describe('CardComponent', () => {
     const card = new CardModel('12345', 'g1');
     card.revealed = true;
     const cardElement = fixture.nativeElement.querySelector('.card');
-    const text = cardElement.querySelectorAll('p')[0];
+    const text = cardElement.querySelectorAll('text')[0];
     // Act
     component.card = card;
     component.ngOnInit();
@@ -45,7 +45,7 @@ describe('CardComponent', () => {
     expect(component.show).not.toEqual(true);
     expect(cardElement.classList).not.toContain('show');
 
-    expect(text.innerHTML).toBe(card.value);
+    expect(text.innerHTML).toContain(card.value);
   }));
 
   it('should not show content when card concealed', fakeAsync(() => {

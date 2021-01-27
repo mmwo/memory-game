@@ -10,16 +10,45 @@
 .board {
   position: relative;
   margin: 10px auto;
-  width: 630px;
-  height: 670px;
+  max-width: 1000px;
+  width: calc(100% - 40px);
 }
 
 .board-content {
   display: grid;
-  grid-template-columns: 150px 150px 150px 150px;
-  grid-template-rows: 150px 150px 150px 150px;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  height: calc(100% - 40px);
+  grid-column-gap: 1%;
+  grid-row-gap: 1%;
+
+  &.size2x2 {
+    grid-template-columns: repeat(2, 49.5%);
+    grid-template-rows: repeat(2, 49.5%);
+  }
+
+  &.size4x4 {
+    grid-template-columns: repeat(4, 24.3%);
+    grid-template-rows: repeat(4, 24.3%);
+  }
+
+  &.size5x4 {
+    grid-template-columns: repeat(5, 19.2%);
+    grid-template-rows: repeat(4, 24.3%);
+  }
+
+  &.size6x5 {
+    grid-template-columns: repeat(6, 15.83%);
+    grid-template-rows: repeat(5, 19.2%);
+  }
+
+  &.size6x6 {
+    grid-template-columns: repeat(6, 15.83%);
+    grid-template-rows: repeat(6, 15.83%);
+  }
+
+  &.size7x6 {
+    grid-template-columns: repeat(7, 13.42%);
+    grid-template-rows: repeat(6, 15.83%);
+  }
 
   -webkit-perspective: 1200px;
   -moz-perspective: 1200px;
@@ -34,7 +63,7 @@
   text-align: center;
   color: #fff;
   position: absolute;
-  bottom: calc(50% - 65px);
+  bottom: calc(50% - 80px);
   left: 0;
   right: 0;
 }
@@ -52,37 +81,7 @@
   height: calc(100% - 40px);
   background: #030303c9;
 }
+
 .d-inline-block {
   display: inline-block;
-}
-
-@media (max-width: 700px) {
-  .board {
-    width: 335px;
-    height: 375px;
-    padding: 0;
-  }
-  .board-content {
-    grid-template-columns: 80px 80px 80px 80px;
-    grid-template-rows: 80px 80px 80px 80px;
-    grid-column-gap: 5px;
-    grid-row-gap: 5px;
-  }
-
-  :host::ng-deep .card {
-    .content {
-      font-size: 17px !important;
-    }
-  }
-}
-
-@media (max-width: 320px) {
-  .board {
-    width: 320px;
-    height: 360px;
-  }
-  .board-content {
-    grid-template-columns: 76px 76px 76px 76px;
-    grid-template-rows: 76px 76px 76px 76px;
-  }
 }

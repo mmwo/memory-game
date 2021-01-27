@@ -12,6 +12,7 @@ import { CardComponent } from '@app/memory/components/card/card.component';
 import { TimeFormatPipe } from './pipes/time-format.pipe';
 import { TimerComponent } from './components/timer/timer.component';
 import { GameBuilderComponent } from './containers/game-builder/game-builder.component';
+import { SizerDirective } from './directives/sizer.directive';
 
 @NgModule({
   imports: [
@@ -23,6 +24,6 @@ import { GameBuilderComponent } from './containers/game-builder/game-builder.com
     MaterialModule,
     MemoryRoutingModule
   ],
-  declarations: [BoardComponent, CardComponent, TimeFormatPipe, TimerComponent, GameBuilderComponent]
+  declarations: [BoardComponent, CardComponent, TimeFormatPipe, TimerComponent, GameBuilderComponent, SizerDirective]
 })
 export class MemoryModule {}
