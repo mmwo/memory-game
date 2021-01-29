@@ -61,7 +61,7 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 
-Array.prototype.shuffle = function() {
+Array.prototype.shuffle = function () {
   for (let i = this.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [this[i], this[j]] = [this[j], this[i]];

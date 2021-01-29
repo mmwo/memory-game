@@ -6,7 +6,7 @@ const initialState: MemoryState = {
   game: undefined,
   gameLog: [],
   totalScore: 0,
-  totalPlayedTime: 0
+  totalPlayedTime: 0,
 };
 const game = new MemoryGame('boardId', [new CardModel('val', 'g1'), new CardModel('val', 'g2')]);
 

@@ -17,12 +17,7 @@ import { Subject } from 'rxjs';
 import { CardModel } from '@app/memory/models';
 import { By } from '@angular/platform-browser';
 import { SizerDirective } from '@app/memory/directives/sizer.directive';
-
-function setTimeoutPromise(milliseconds: number): Promise<void> {
-  return new Promise(resolve => {
-    setTimeout(resolve, milliseconds);
-  });
-}
+import { setTimeoutPromise } from '@app/testUtil';
 
 describe('BoardComponent', () => {
   let component: BoardComponent;
@@ -32,7 +27,7 @@ describe('BoardComponent', () => {
     new CardModel('val1', 'g1'),
     new CardModel('val1', 'g1'),
     new CardModel('val2', 'g1'),
-    new CardModel('val2', 'g1')
+    new CardModel('val2', 'g1'),
   ];
   let mockedBoardService: any;
   const isGameCompleted$ = new Subject<boolean>();
@@ -45,7 +40,7 @@ describe('BoardComponent', () => {
       'getMoves',
       'isGameCompleted',
       'buildBoard',
-      'revealCard'
+      'revealCard',
     ]);
     mockedBoardService.isGameCompleted.mockReturnValue(isGameCompleted$);
     mockedBoardService.getMoves.mockReturnValue(moves$);
@@ -58,10 +53,10 @@ describe('BoardComponent', () => {
         SharedModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
-        MaterialModule
+        MaterialModule,
       ],
       declarations: [BoardComponent, CardComponent, TimerComponent, TimeFormatPipe, SizerDirective],
-      providers: [{ provide: BoardService, useValue: mockedBoardService }]
+      providers: [{ provide: BoardService, useValue: mockedBoardService }],
     }).compileComponents();
 
     Object.defineProperty(window, 'matchMedia', {
@@ -69,9 +64,9 @@ describe('BoardComponent', () => {
         return {
           matches: true,
           addEventListener: jest.fn(),
-          removeEventListener: jest.fn()
+          removeEventListener: jest.fn(),
         };
-      })
+      }),
     });
 
     fixture = TestBed.createComponent(BoardComponent);
@@ -101,7 +96,7 @@ describe('BoardComponent', () => {
     expect(mockedBoardService.buildBoard).toHaveBeenCalledTimes(1);
   });
 
-  it('should render four Cards', async(async () => {
+  it('should render four Cards', async () => {
     moves$.next(0);
     fixture.detectChanges();
 
@@ -114,9 +109,9 @@ describe('BoardComponent', () => {
 
     const cardElements = fixture.nativeElement.querySelectorAll('app-card');
     expect(cardElements.length).toEqual(initialCards.length);
-  }));
+  });
 
-  it('should trigger cardRevealed when clicked on it', async(async () => {
+  it('should trigger cardRevealed when clicked on it', async () => {
     moves$.next(0);
     fixture.detectChanges();
 
@@ -130,7 +125,7 @@ describe('BoardComponent', () => {
     const cardElements: CardComponent = fixture.debugElement.query(By.directive(CardComponent)).componentInstance;
     cardElements.onClick();
     expect(mockedBoardService.revealCard).toHaveBeenCalledTimes(1);
-  }));
+  });
 
   it('should trigger buildBoard on Play again', async(async () => {
     moves$.next(0);

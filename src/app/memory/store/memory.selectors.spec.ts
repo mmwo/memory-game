@@ -6,14 +6,14 @@ const mockedCards: CardModel[] = [
   new CardModel('v1', 'g1'),
   new CardModel('v1', 'g1'),
   new CardModel('v2', 'g2'),
-  new CardModel('v2', 'g2')
+  new CardModel('v2', 'g2'),
 ];
 
 const mockMemoryState: MemoryState = {
   game: new MemoryGame('boardId', mockedCards),
   totalPlayedTime: 0,
   totalScore: 0,
-  gameLog: []
+  gameLog: [],
 };
 
 describe('MemorySelectors: getMemoryGame', () => {
@@ -53,7 +53,7 @@ describe('MemorySelectors: isGameCompleted', () => {
   });
 
   it('should return true for all cards revealed', () => {
-    const revealedCardsMock = mockedCards.map(card => ({ ...card, revealed: true }));
+    const revealedCardsMock = mockedCards.map((card) => ({ ...card, revealed: true }));
     expect(isGameCompleted.projector(revealedCardsMock)).toBe(true);
   });
 

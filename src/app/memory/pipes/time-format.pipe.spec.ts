@@ -20,7 +20,7 @@ describe('TimeFormatPipe', () => {
       { number: 3661, formatted: '01:01:01' },
       { number: 3700, formatted: '01:01:40' },
       { number: 7199, formatted: '01:59:59' },
-      { number: 7200, formatted: '02:00:00' }
+      { number: 7200, formatted: '02:00:00' },
     ];
     const pipe = new TimeFormatPipe();
 

@@ -12,15 +12,15 @@ const routes: Routes = [
     {
       path: 'memory/play',
       component: BoardComponent,
-      data: { title: extract('Play Memory') }
+      data: { title: extract('Play Memory') },
     },
-    { path: 'memory/builder', component: GameBuilderComponent, data: { title: extract('Builder') } }
-  ])
+    { path: 'memory/builder', component: GameBuilderComponent, data: { title: extract('Builder') } },
+  ]),
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: []
+  providers: [],
 })
 export class MemoryRoutingModule {}

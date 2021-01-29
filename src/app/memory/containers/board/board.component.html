@@ -7,7 +7,7 @@
   <ng-template #game>
     <div class="board-content {{ 'size' + selected.size }}">
       <app-card
-        *ngFor="let card of cards$ | async; trackBy: card?.id"
+        *ngFor="let card of cards$ | async; trackBy: trackByFn"
         [card]="card"
         (clicked)="onCardClick($event)"
       ></app-card>
@@ -20,6 +20,6 @@
       : {{ moves$ | async }}
     </p>
     &nbsp;
-    <app-timer class="d-inline-block " #timer>{{ 'Time' | translate }}:&nbsp;</app-timer>
+    <app-timer class="d-inline-block" #timer>{{ 'Time' | translate }}:&nbsp;</app-timer>
   </div>
 </div>

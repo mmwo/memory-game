@@ -10,7 +10,7 @@ import { ScoreService } from '@app/memory/services/score.service';
 @Injectable()
 export class MemoryEffects {
   @Effect() gameSave$ = this.store$.select(isGameCompleted).pipe(
-    filter(isCompleted => isCompleted === true),
+    filter((isCompleted) => isCompleted === true),
     withLatestFrom(this.store$.select(getMemoryGame)),
     switchMap(([_, game]) => {
       console.log('GAME COMPLETED!!!', game, 'Score:', this.scoreService.calc(game));

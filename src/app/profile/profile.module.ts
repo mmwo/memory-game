@@ -18,7 +18,7 @@ import { ProfileRoutingModule } from '@app/profile/profile-routing.module';
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
-    ProfileRoutingModule
-  ]
+    ProfileRoutingModule,
+  ],
 })
 export class ProfileModule {}

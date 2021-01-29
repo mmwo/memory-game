@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[appSizer]'
+  selector: '[appSizer]',
 })
 export class SizerDirective implements OnInit {
   @Input() appSizer: string;

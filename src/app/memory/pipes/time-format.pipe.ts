@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'timeFormat'
+  name: 'timeFormat',
 })
 export class TimeFormatPipe implements PipeTransform {
   private static prefix(num: number): string {

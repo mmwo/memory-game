@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { BoardService } from '@app/memory/services/board.service';
 import { Observable } from 'rxjs';
 import { CardModel } from '@app/memory/models';
@@ -8,7 +8,8 @@ import { delay, tap } from 'rxjs/operators';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent implements OnInit {
   cards$: Observable<CardModel[]>;
@@ -22,9 +23,9 @@ export class BoardComponent implements OnInit {
     { size: '6x5', elems: 15 },
     { size: '5x4', elems: 10 },
     { size: '4x4', elems: 8 },
-    { size: '2x2', elems: 2 }
+    { size: '2x2', elems: 2 },
   ];
-  public selected = this.sizes[5];
+  public selected = this.sizes[3];
 
   private cardsToSelect = [
     'Orange',
@@ -50,10 +51,11 @@ export class BoardComponent implements OnInit {
     'Sugar',
     'Book',
     'Ananas',
-    'Phone'
+    'Phone',
   ];
-
   constructor(private boardService: BoardService) {}
+
+  trackByFn = (card: CardModel) => card.id;
 
   ngOnInit() {
     this.cards$ = this.boardService.getCards();

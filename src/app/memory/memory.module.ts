@@ -22,8 +22,8 @@ import { SizerDirective } from './directives/sizer.directive';
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
-    MemoryRoutingModule
+    MemoryRoutingModule,
   ],
-  declarations: [BoardComponent, CardComponent, TimeFormatPipe, TimerComponent, GameBuilderComponent, SizerDirective]
+  declarations: [BoardComponent, CardComponent, TimeFormatPipe, TimerComponent, GameBuilderComponent, SizerDirective],
 })
 export class MemoryModule {}

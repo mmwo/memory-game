@@ -1,16 +1,10 @@
 export function UniqueId() {
   return (
-    Math.random()
-      .toString(36)
-      .substring(2, 6) +
+    Math.random().toString(36).substring(2, 6) +
     '-' +
-    Math.random()
-      .toString(36)
-      .substring(4, 8) +
+    Math.random().toString(36).substring(4, 8) +
     '-' +
-    Math.random()
-      .toString(36)
-      .substring(6, 12)
+    Math.random().toString(36).substring(6, 12)
   );
 }
 

@@ -23,13 +23,13 @@ describe('ShellComponent', () => {
         BrowserAnimationsModule,
         FlexLayoutModule,
         MaterialModule,
-        CoreModule
+        CoreModule,
       ],
       providers: [
         { provide: AuthenticationService, useClass: MockAuthenticationService },
-        { provide: CredentialsService, useClass: MockCredentialsService }
+        { provide: CredentialsService, useClass: MockCredentialsService },
       ],
-      declarations: [ShellComponent]
+      declarations: [ShellComponent],
     }).compileComponents();
   }));
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CardModel, MemoryGame, UniqueId } from '@app/memory/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BoardBuilderService {
   constructor() {}
@@ -13,12 +13,6 @@ export class BoardBuilderService {
       return [new CardModel(card, groupId), new CardModel(card, groupId)];
     };
 
-    return new MemoryGame(
-      UniqueId(),
-      cards
-        .map(builder)
-        .flat()
-        .shuffle()
-    );
+    return new MemoryGame(UniqueId(), cards.map(builder).flat().shuffle());
   }
 }

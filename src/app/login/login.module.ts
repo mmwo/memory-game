@@ -17,8 +17,8 @@ import { LoginComponent } from './login.component';
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
-    LoginRoutingModule
+    LoginRoutingModule,
   ],
-  declarations: [LoginComponent]
+  declarations: [LoginComponent],
 })
 export class LoginModule {}

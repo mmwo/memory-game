@@ -9,7 +9,7 @@ import { TimerComponent } from '@app/memory/components/timer/timer.component';
 import { BoardBuilderService } from '@app/memory/services/board-builder';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BoardService {
   private revealed: string[] = [];
@@ -59,7 +59,7 @@ export class BoardService {
   }
 
   private revertTemporary(): void {
-    this.revealed.forEach(cardId => this.store.dispatch(memoryActions.cardConcealed({ cardId })));
+    this.revealed.forEach((cardId) => this.store.dispatch(memoryActions.cardConcealed({ cardId })));
     this.resetData();
   }
 

@@ -10,13 +10,13 @@ const routes: Routes = [
   Shell.childRoutes([
     { path: '', redirectTo: '/memory/play', pathMatch: 'full' },
     { path: 'profile/details', component: ProfileDetailsComponent, data: { title: extract('Details') } },
-    { path: 'profile/stats', component: ProfileStatsComponent, data: { title: extract('Statistics') } }
-  ])
+    { path: 'profile/stats', component: ProfileStatsComponent, data: { title: extract('Statistics') } },
+  ]),
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: []
+  providers: [],
 })
 export class ProfileRoutingModule {}

@@ -1,31 +1,38 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { CardModel } from '@app/memory/models';
+import { LocalState } from '@app/memory/services/local-state';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: LocalState,
+      useFactory: () =>
+        new LocalState<{ show: boolean; hide: boolean; revealed: boolean }>({
+          show: false,
+          hide: false,
+          revealed: false,
+        }),
+    },
+  ],
 })
-export class CardComponent implements OnInit {
-  revealed: boolean;
-  show: boolean;
-  hide: boolean;
-
-  @Input() card: CardModel;
+export class CardComponent implements OnChanges {
+  @Input()
+  card: CardModel;
   @Output() clicked = new EventEmitter<CardModel>();
-
-  constructor() {}
-
-  ngOnInit() {
-    if (!this.card) {
-      return;
-    }
-    if (this.card.revealed) {
-      this.animateShow();
-    } else {
-      this.animateHide();
-    }
-  }
+  localState$ = this.localState.value$;
+  constructor(public localState: LocalState<{ show: boolean; hide: boolean; revealed: boolean }>) {}
 
   onClick() {
     if (this.card.revealed) {
@@ -34,16 +41,27 @@ export class CardComponent implements OnInit {
     this.clicked.emit(this.card);
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.card && changes.card.currentValue) {
+      const card = changes.card.currentValue;
+      if (card.revealed === true) {
+        this.animateShow();
+      } else if (!changes.card.firstChange) {
+        this.animateHide();
+      }
+    }
+  }
+
   private animateShow() {
-    this.show = true;
-    setTimeout(() => (this.revealed = true), 350);
-    setTimeout(() => (this.show = false), 700);
+    this.localState.setState({ show: true });
+    this.localState.setState({ revealed: true }, 350);
+    this.localState.setState({ show: false }, 700);
   }
 
   private animateHide() {
-    this.revealed = true;
-    this.hide = true;
-    setTimeout(() => (this.revealed = false), 350);
-    setTimeout(() => (this.hide = false), 700);
+    this.localState.setState({ revealed: true });
+    this.localState.setState({ hide: true });
+    this.localState.setState({ revealed: false }, 350);
+    this.localState.setState({ hide: false }, 700);
   }
 }

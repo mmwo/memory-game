@@ -8,7 +8,7 @@ describe('GameBuilderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [GameBuilderComponent]
+      declarations: [GameBuilderComponent],
     }).compileComponents();
   }));
 

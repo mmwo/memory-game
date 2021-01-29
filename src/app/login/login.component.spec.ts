@@ -24,9 +24,9 @@ describe('LoginComponent', () => {
         RouterTestingModule,
         TranslateModule.forRoot(),
         ReactiveFormsModule,
-        CoreModule
+        CoreModule,
       ],
-      declarations: [LoginComponent]
+      declarations: [LoginComponent],
     }).compileComponents();
   }));
 

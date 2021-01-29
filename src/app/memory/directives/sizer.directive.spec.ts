@@ -11,9 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@app/material.module';
 
 @Component({
-  template: `
-    <div class="container" appSizer="{{ size }}">asdf</div>
-  `
+  template: ` <div class="container" appSizer="{{ size }}">asdf</div> `,
 })
 class TestSizerComponent {
   size: string;
@@ -40,10 +38,10 @@ describe('SizerDirective', () => {
           SharedModule,
           BrowserAnimationsModule,
           FlexLayoutModule,
-          MaterialModule
+          MaterialModule,
         ],
         declarations: [TestSizerComponent, SizerDirective],
-        providers: [Renderer2]
+        providers: [Renderer2],
       }).compileComponents();
 
       fixture = TestBed.createComponent(TestSizerComponent);

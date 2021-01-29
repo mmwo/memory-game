@@ -38,10 +38,10 @@ import { ProfileModule } from '@app/profile/profile.module';
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([MemoryEffects]),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   declarations: [AppComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

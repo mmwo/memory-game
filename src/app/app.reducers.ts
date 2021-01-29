@@ -8,7 +8,7 @@ export interface AppState {
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  memory: memoryReducer
+  memory: memoryReducer,
 };
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [storeFreeze] : [];

@@ -9,7 +9,7 @@ describe('TimerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TimerComponent, TimeFormatPipe]
+      declarations: [TimerComponent, TimeFormatPipe],
     }).compileComponents();
   }));
 

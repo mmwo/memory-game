@@ -13,7 +13,7 @@ const initialState: MemoryState = {
   game: undefined,
   gameLog: [],
   totalScore: 0,
-  totalPlayedTime: 0
+  totalPlayedTime: 0,
 };
 
 export const memoryReducer = createReducer<MemoryState>(
@@ -32,7 +32,7 @@ export const memoryReducer = createReducer<MemoryState>(
 );
 
 function setRevealedStatus(cards: CardModel[], cardId: string, revealed: boolean): CardModel[] {
-  const i = cards.findIndex(card => card.id === cardId);
+  const i = cards.findIndex((card) => card.id === cardId);
   const revealCounter = revealed ? cards[i].revealCounter + 1 : cards[i].revealCounter;
   const newCard = { ...cards[i], revealed, revealCounter };
   return [...cards.slice(0, i), newCard, ...cards.slice(i + 1)];

@@ -19,14 +19,14 @@ describe('BoardService', () => {
     new CardModel('c1', 'g1'),
     new CardModel('c1', 'g1'),
     new CardModel('c2', 'g2'),
-    new CardModel('c2', 'g2')
+    new CardModel('c2', 'g2'),
   ]);
   beforeEach(async(() => {
     mockedStore = createSpyObj<Store<AppState>>(Store, ['dispatch', 'select']);
     mockedBoardBuilder = createSpyObj<BoardBuilderService>(BoardBuilderService, ['build']);
 
     TestBed.configureTestingModule({
-      declarations: [TimerComponent, TimeFormatPipe]
+      declarations: [TimerComponent, TimeFormatPipe],
     }).compileComponents();
   }));
 
