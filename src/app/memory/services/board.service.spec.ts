@@ -50,17 +50,19 @@ describe('BoardService', () => {
   });
 
   it('dispatches card revealed and auto concealed after 2 seconds', fakeAsync(() => {
-    timer.time = 5;
+    timer.currentTick = 5;
     boardService.buildBoard(['one', 'two', 'three', 'four'], timer);
     boardService.revealCard(game.cards[1]);
-    expect(mockedStore.dispatch.mock.calls[1][0]).toEqual(cardRevealed({ cardId: game.cards[1].id, time: timer.time }));
+    expect(mockedStore.dispatch.mock.calls[1][0]).toEqual(
+      cardRevealed({ cardId: game.cards[1].id, time: timer.currentTick })
+    );
     tick(3000);
     expect(mockedStore.dispatch).toHaveBeenCalledTimes(3);
     expect(mockedStore.dispatch.mock.calls[2][0]).toEqual(cardConcealed({ cardId: game.cards[1].id }));
   }));
 
   it('should not call conceal after same group is matched', fakeAsync(() => {
-    timer.time = 4;
+    timer.currentTick = 4;
     boardService.buildBoard(['one', 'two', 'three', 'four'], timer);
     boardService.revealCard(game.cards[0]);
     boardService.revealCard(game.cards[1]);
@@ -72,7 +74,7 @@ describe('BoardService', () => {
 
   // tslint:disable-next-line:max-line-length
   it('conceals cards when revealing 3rd card and already 2 cards temporarily revealed without group being matched', fakeAsync(() => {
-    timer.time = 2;
+    timer.currentTick = 2;
     boardService.buildBoard(['one', 'two', 'three', 'four'], timer);
     boardService.revealCard(game.cards[0]);
     boardService.revealCard(game.cards[2]);

@@ -74,11 +74,12 @@ describe('BoardComponent', () => {
   });
   it('should have timer ticking after game started', fakeAsync(() => {
     isGameCompleted$.next(false);
-    // await setTimeoutPromise(3000);
+    tick(10);
+    fixture.detectChanges();
     tick(2000);
-    expect(component.timer.time).toBeGreaterThan(0);
+    expect(component.timer.currentTick).toBeGreaterThan(0);
     tick(2000);
-    expect(component.timer.time).toBeGreaterThan(2);
+    expect(component.timer.currentTick).toBeGreaterThan(2);
     component.timer.stop();
   }));
 

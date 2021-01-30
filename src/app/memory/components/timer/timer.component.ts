@@ -1,5 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { interval, Observable, Subscription } from 'rxjs';
+import { interval, NEVER, Observable, Subject } from 'rxjs';
+import { map, scan, share, startWith, switchMap } from 'rxjs/operators';
+
+class TimerState {
+  value?: number;
+  count: boolean;
+}
 
 @Component({
   selector: 'app-timer',
@@ -8,28 +14,39 @@ import { interval, Observable, Subscription } from 'rxjs';
 })
 export class TimerComponent implements OnInit, OnDestroy {
   tick$: Observable<number>;
-  time: number;
-  private sub: Subscription;
+  currentTick: number;
+  private ticker$: Subject<TimerState>;
 
-  constructor() {}
-
-  ngOnInit() {
-    this.tick$ = interval(1000);
+  constructor() {
+    this.ticker$ = new Subject();
+    this.tick$ = this.ticker$.asObservable().pipe(
+      startWith({ count: false, value: 0 }),
+      scan((state: TimerState, update) => ({ ...state, ...update })),
+      switchMap((state) => {
+        return state.count
+          ? interval(1000).pipe(
+              map(() => {
+                return (this.currentTick = state.value++);
+              })
+            )
+          : NEVER;
+      }),
+      share()
+    );
   }
 
+  ngOnInit() {}
+
   start() {
-    if (this.sub) {
-      return;
-    }
-    this.time = 0;
-    this.sub = this.tick$.subscribe(() => this.time++);
+    this.ticker$.next({ count: true });
+  }
+
+  pause() {
+    this.ticker$.next({ count: false });
   }
 
   stop() {
-    if (this.sub) {
-      this.sub.unsubscribe();
-      this.sub = null;
-    }
+    this.ticker$.next({ count: false, value: 0 });
   }
 
   ngOnDestroy() {

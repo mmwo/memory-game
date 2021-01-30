@@ -26,7 +26,7 @@ describe('TimerComponent', () => {
   it("init doesn't cause timer to start by itself", fakeAsync(() => {
     component.ngOnInit();
     tick(2000);
-    expect(component.time).toBeUndefined();
+    expect(component.currentTick).toBeUndefined();
   }));
 
   it('timer is ticking on start and should stop on destroy', fakeAsync(() => {
@@ -35,23 +35,27 @@ describe('TimerComponent', () => {
     component.start();
     tick(2000);
     component.ngOnDestroy();
-    time = component.time;
-    expect(component.time).toBeGreaterThan(0);
+    time = component.currentTick;
+    expect(component.currentTick).toBeGreaterThan(0);
     tick(2000);
-    expect(component.time).toBe(time);
+    expect(component.currentTick).toBe(time);
+    component.stop();
   }));
 
   it('should continue ticking not affected by consecutive calling on start', fakeAsync(() => {
     component.ngOnInit();
     component.start();
+    fixture.detectChanges();
     tick(1000);
-    const time = component.time;
+    const time = component.currentTick;
     component.start();
     tick(1000);
     component.start();
     tick(1000);
-    expect(component.time).toBeGreaterThan(time);
-    expect(component.time).toBeGreaterThan(2);
+    component.start();
+    tick(1000);
+    expect(component.currentTick).toBeGreaterThan(time);
+    expect(component.currentTick).toBeGreaterThan(2);
     component.stop();
   }));
 });

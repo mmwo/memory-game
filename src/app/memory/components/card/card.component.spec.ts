@@ -64,7 +64,7 @@ describe('CardComponent', () => {
   it('should show content when card revealed ', async () => {
     // Arrange
     let state: { show: boolean; hide: boolean; revealed: boolean };
-    component.localState$.subscribe((lState) => (state = lState));
+    const sub = component.localState$.subscribe((lState) => (state = lState));
     const card = new CardModel('12345', 'g1');
     card.revealed = true;
     // Act
@@ -72,6 +72,7 @@ describe('CardComponent', () => {
     fixture.detectChanges();
     const cardElement = fixture.nativeElement.querySelector('.card');
     await setTimeoutPromise(1000);
+    sub.unsubscribe();
     fixture.detectChanges();
     // Assert
     expect(state).toEqual({ show: false, hide: false, revealed: true });
@@ -83,7 +84,7 @@ describe('CardComponent', () => {
   it('should not show content when card concealed', async () => {
     // Arrange
     let state: { show: boolean; hide: boolean; revealed: boolean };
-    component.localState$.subscribe((lState) => (state = lState));
+    const sub = component.localState$.subscribe((lState) => (state = lState));
     const card = new CardModel('12345', 'g1');
     card.revealed = false;
     // Act
@@ -91,6 +92,7 @@ describe('CardComponent', () => {
     fixture.detectChanges();
 
     await setTimeoutPromise(1000);
+    sub.unsubscribe();
     fixture.detectChanges();
     const cardElement = fixture.nativeElement.querySelector('.card');
 
@@ -110,12 +112,13 @@ describe('CardComponent', () => {
 
     // Assert
     let emittedCard;
-    component.clicked.subscribe((val: CardModel) => (emittedCard = val));
+    const sub = component.clicked.subscribe((val: CardModel) => (emittedCard = val));
 
     // Act
     component.card = card;
     component.onClick();
     await setTimeoutPromise(10);
+    sub.unsubscribe();
     expect(emittedCard).toEqual(card);
   });
 
@@ -124,12 +127,13 @@ describe('CardComponent', () => {
     let shouldStayUndefined: CardModel;
     const card = new CardModel('12345', 'g1');
     card.revealed = true;
-    component.clicked.subscribe((emittedCard: CardModel) => (shouldStayUndefined = emittedCard));
+    const sub = component.clicked.subscribe((emittedCard: CardModel) => (shouldStayUndefined = emittedCard));
 
     // Act
     component.card = card;
     component.onClick();
     await setTimeoutPromise(10);
+    sub.unsubscribe();
     // Assert
     expect(shouldStayUndefined).toBeUndefined();
   });

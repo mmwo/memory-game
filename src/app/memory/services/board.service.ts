@@ -44,7 +44,7 @@ export class BoardService {
       clearTimeout(this.timeout);
       this.revertTemporary();
     }
-    this.store.dispatch(memoryActions.cardRevealed({ cardId: card.id, time: this.timer.time }));
+    this.store.dispatch(memoryActions.cardRevealed({ cardId: card.id, time: this.timer.currentTick }));
     this.revealed.push(card.id);
 
     if (this.groupId === card.groupId) {
