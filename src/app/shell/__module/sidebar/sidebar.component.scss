@@ -1,0 +1,36 @@
+.logo-img {
+  background: radial-gradient(
+    circle,
+    rgba(5, 5, 5, 1) 0%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(0, 0, 0, 0.06486344537815125) 100%
+  );
+  border-radius: 50%;
+  box-shadow: 0 0 10px 3px #fff;
+  margin-top: 4px;
+  width: 30px;
+  height: 30px;
+}
+
+.logo-text.simple-text {
+  font-weight: bolder;
+  padding-left: 8px;
+  font-family: PottaOne;
+  position: relative;
+  overflow: visible;
+  font-size: 18px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 46px;
+    display: block;
+    border-top: 2px solid #fff;
+    border-left: 4px solid #fff;
+    border-top-left-radius: 100%;
+    height: 10px;
+    z-index: 3;
+    width: 99px;
+  }
+}

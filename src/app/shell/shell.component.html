@@ -1,91 +1,22 @@
-<div fxFlex>
-  <mat-sidenav-container fxFill>
-    <mat-sidenav
-      #sidenav
-      [mode]="isMobile ? 'over' : 'side'"
-      [opened]="!isMobile"
-      [disableClose]="!isMobile"
-      ngClass.gt-sm="has-border"
-    >
-      <mat-toolbar color="primary">
-        <span translate>APP_NAME</span>
-        <div fxFlex></div>
-        <div></div>
-        <div>
-          <button mat-icon-button [matMenuTriggerFor]="languageMenu">
-            <mat-icon>language</mat-icon>
-          </button>
-          <mat-menu #languageMenu="matMenu">
-            <button mat-menu-item *ngFor="let language of languages" (click)="setLanguage(language)">
-              {{ language }}
-            </button>
-          </mat-menu>
+<div class="wrapper">
+  <div class="sidebar" data-color="brand">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="main-panel">
+    <app-navbar></app-navbar>
+    <div class="main-content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body body-fitted-height">
+              <div class="row">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
         </div>
-      </mat-toolbar>
-      <nav>
-        <mat-list>
-          <mat-accordion>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <span translate>Profile</span>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-
-              <a
-                mat-list-item
-                routerLink="/profile/details"
-                routerLinkActive="active"
-                (click)="isMobile && sidenav.close()"
-              >
-                <span translate>Details</span>
-              </a>
-
-              <a
-                mat-list-item
-                routerLink="/profile/stats"
-                routerLinkActive="active"
-                (click)="isMobile && sidenav.close()"
-              >
-                <span translate>Stats</span>
-              </a>
-            </mat-expansion-panel>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <span translate>Memory</span>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-
-              <a
-                mat-list-item
-                routerLink="/memory/builder"
-                routerLinkActive="active"
-                (click)="isMobile && sidenav.close()"
-              >
-                <span translate>Game Builder</span>
-              </a>
-              <a
-                mat-list-item
-                routerLink="/memory/play"
-                routerLinkActive="active"
-                (click)="isMobile && sidenav.close()"
-              >
-                <span translate>Play</span>
-              </a>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </mat-list>
-      </nav>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar color="primary" class="mat-elevation-z6">
-        <button class="menu-button" mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span>{{ title }}</span>
-      </mat-toolbar>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
 </div>

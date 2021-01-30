@@ -45,11 +45,7 @@ Object.defineProperty(window, 'matchMedia', {
   }),
 });
 
-function setTimeoutPromise(milliseconds: number): Promise<void> {
-  return new Promise((resolve) => {
-    setTimeout(resolve, milliseconds);
-  });
-}
+console.error = console.log;
 
 /* output shorter and more meaningful Zone error stack traces */
 // Error.stackTraceLimit = 2;

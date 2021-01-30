@@ -5,20 +5,10 @@ import { ProfileStatsComponent } from './components/profile-stats/profile-stats.
 import { TranslateModule } from '@ngx-translate/core';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '@app/material.module';
 import { ProfileRoutingModule } from '@app/profile/profile-routing.module';
 
 @NgModule({
   declarations: [ProfileDetailsComponent, ProfileStatsComponent],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    CoreModule,
-    SharedModule,
-    FlexLayoutModule,
-    MaterialModule,
-    ProfileRoutingModule,
-  ],
+  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, ProfileRoutingModule],
 })
 export class ProfileModule {}

@@ -1,47 +1,24 @@
 :host {
-  display: flex;
-  flex: 1;
+  width: 100%;
+}
+.wrapper {
+  min-height: calc(100vh - 31px);
+  height: auto;
+}
+.body-fitted-height {
+  min-height: calc(100vh - 102px);
 }
 
-.mat-sidenav {
-  min-width: 270px;
-  max-width: 28%;
+.main-content {
+  min-height: calc(100vh - 70px);
+  padding-bottom: 10px;
 }
 
-.has-border {
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
+.card {
+  padding-top: 15px;
+  margin-bottom: 7px;
 }
 
-.mat-list {
-  padding-top: 0;
-}
-
-.mat-list-item {
-  text-decoration: none;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
-}
-
-.menu-button {
-  margin-right: 1rem;
-}
-
-:host ::ng-deep {
-  /* stylelint-disable */
-  .mat-expansion-panel-header {
-    padding-left: 16px;
-    font-size: 17px;
-  }
-  .mat-expansion-panel-body {
-    padding: 0;
-    span {
-      font-size: 15px;
-    }
-  }
-  .mat-expansion-panel-spacing {
-    margin: 3px 0;
-  }
-  /* stylelint-enable */
+.main-panel {
+  padding-top: 69px;
 }

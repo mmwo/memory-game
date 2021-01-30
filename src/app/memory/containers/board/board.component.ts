@@ -25,7 +25,7 @@ export class BoardComponent implements OnInit {
     { size: '4x4', elems: 8 },
     { size: '2x2', elems: 2 },
   ];
-  public selected = this.sizes[3];
+  public selected = this.sizes[0];
 
   private cardsToSelect = [
     'Orange',

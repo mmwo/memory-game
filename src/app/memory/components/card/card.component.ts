@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CardModel } from '@app/memory/models';
-import { LocalState } from '@app/memory/services/local-state';
+import { LocalStateService } from '@app/shared/services/local-state-service';
 
 @Component({
   selector: 'app-card',
@@ -17,9 +17,9 @@ import { LocalState } from '@app/memory/services/local-state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
-      provide: LocalState,
+      provide: LocalStateService,
       useFactory: () =>
-        new LocalState<{ show: boolean; hide: boolean; revealed: boolean }>({
+        new LocalStateService<{ show: boolean; hide: boolean; revealed: boolean }>({
           show: false,
           hide: false,
           revealed: false,
@@ -32,7 +32,7 @@ export class CardComponent implements OnChanges {
   card: CardModel;
   @Output() clicked = new EventEmitter<CardModel>();
   localState$ = this.localState.value$;
-  constructor(public localState: LocalState<{ show: boolean; hide: boolean; revealed: boolean }>) {}
+  constructor(public localState: LocalStateService<{ show: boolean; hide: boolean; revealed: boolean }>) {}
 
   onClick() {
     if (this.card.revealed) {

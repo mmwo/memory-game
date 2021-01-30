@@ -23,7 +23,8 @@
       "@shared": ["src/app/@shared"],
       "@shared/*": ["src/app/@shared/*"],
       "@env/*": ["src/environments/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
