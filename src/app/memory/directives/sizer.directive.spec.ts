@@ -7,8 +7,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@app/shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '@app/material.module';
 
 @Component({
   template: ` <div class="container" appSizer="{{ size }}">asdf</div> `,
@@ -31,15 +29,7 @@ describe('SizerDirective', () => {
   describe('Directive: Sizer', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        imports: [
-          CoreModule,
-          CommonModule,
-          TranslateModule.forRoot({}),
-          SharedModule,
-          BrowserAnimationsModule,
-          FlexLayoutModule,
-          MaterialModule,
-        ],
+        imports: [CoreModule, CommonModule, TranslateModule.forRoot({}), SharedModule, BrowserAnimationsModule],
         declarations: [TestSizerComponent, SizerDirective],
         providers: [Renderer2],
       }).compileComponents();

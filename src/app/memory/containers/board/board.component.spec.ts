@@ -1,10 +1,8 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
-import { MaterialModule } from '@app/material.module';
 import { BoardComponent } from './board.component';
 import { BoardService } from '@app/memory/services/board.service';
 import { CardComponent } from '@app/memory/components/card/card.component';
@@ -46,15 +44,7 @@ describe('BoardComponent', () => {
     mockedBoardService.getMoves.mockReturnValue(moves$);
     mockedBoardService.getCards.mockReturnValue(cards$);
     TestBed.configureTestingModule({
-      imports: [
-        CoreModule,
-        CommonModule,
-        TranslateModule.forRoot({}),
-        SharedModule,
-        BrowserAnimationsModule,
-        FlexLayoutModule,
-        MaterialModule,
-      ],
+      imports: [CoreModule, CommonModule, TranslateModule.forRoot({}), SharedModule, BrowserAnimationsModule],
       declarations: [BoardComponent, CardComponent, TimerComponent, TimeFormatPipe, SizerDirective],
       providers: [{ provide: BoardService, useValue: mockedBoardService }],
     }).compileComponents();
