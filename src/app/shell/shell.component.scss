@@ -1,6 +1,7 @@
 :host {
   width: 100%;
 }
+
 .wrapper {
   min-height: calc(100vh - 31px);
   height: auto;
@@ -10,7 +11,7 @@
 }
 
 .main-content {
-  min-height: calc(100vh - 70px);
+  height: calc(100vh - 100px);
   padding-bottom: 10px;
 }
 

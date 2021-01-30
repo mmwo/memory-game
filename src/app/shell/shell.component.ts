@@ -33,16 +33,6 @@ export class ShellComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    const isWindows = navigator.platform.indexOf('Win') > -1;
-
-    if (isWindows && !document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {
-      // if we are on windows OS we activate the perfectScrollbar function
-
-      document.getElementsByTagName('body')[0].classList.add('perfect-scrollbar-on');
-    } else {
-      document.getElementsByTagName('body')[0].classList.remove('perfect-scrollbar-off');
-    }
-
     this.location.subscribe((ev: PopStateEvent) => {
       this.lastPoppedUrl = ev.url;
     });
@@ -52,6 +42,9 @@ export class ShellComponent implements OnInit, AfterViewInit {
     this.runOnRouteChange();
   }
 
+  isWindows() {
+    return navigator.platform.indexOf('Win') > -1;
+  }
   isMaps(path: string) {
     let title = this.location.prepareExternalUrl(this.location.path());
     title = title.slice(1);
