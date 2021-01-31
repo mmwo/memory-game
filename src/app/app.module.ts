@@ -19,6 +19,7 @@ import { environment } from '@env/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MemoryEffects } from '@app/memory/store/memory.effects';
 import { ProfileModule } from '@app/profile/profile.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { ProfileModule } from '@app/profile/profile.module';
     LoginModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
     StoreModule.forRoot(reducers),
+    ToastrModule.forRoot({}),
     EffectsModule.forRoot([MemoryEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],

@@ -29,7 +29,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.createForm();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loginForm.patchValue({
+      username: 'autologin',
+      password: 'skippasscheck',
+    });
+    this.login();
+  }
 
   ngOnDestroy() {}
 

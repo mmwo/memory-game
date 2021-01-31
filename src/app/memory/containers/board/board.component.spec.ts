@@ -12,20 +12,21 @@ import { CommonModule } from '@angular/common';
 import { createSpyObj } from 'jest-createspyobj';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
-import { CardModel } from '@app/memory/models';
+import { CardModel, TextCardModel } from '@app/memory/models';
 import { By } from '@angular/platform-browser';
 import { SizerDirective } from '@app/memory/directives/sizer.directive';
 import { setTimeoutPromise } from '@app/testUtil';
+import { TextSegmentPipe } from '@app/memory/pipes/text-segment.pipe';
 
 describe('BoardComponent', () => {
   let component: BoardComponent;
   let fixture: ComponentFixture<BoardComponent>;
 
   const initialCards = [
-    new CardModel('val1', 'g1'),
-    new CardModel('val1', 'g1'),
-    new CardModel('val2', 'g1'),
-    new CardModel('val2', 'g1'),
+    new TextCardModel('val1', 'g1'),
+    new TextCardModel('val1', 'g1'),
+    new TextCardModel('val2', 'g1'),
+    new TextCardModel('val2', 'g1'),
   ];
   let mockedBoardService: any;
   const isGameCompleted$ = new Subject<boolean>();
@@ -45,7 +46,7 @@ describe('BoardComponent', () => {
     mockedBoardService.getCards.mockReturnValue(cards$);
     TestBed.configureTestingModule({
       imports: [CoreModule, CommonModule, TranslateModule.forRoot({}), SharedModule, BrowserAnimationsModule],
-      declarations: [BoardComponent, CardComponent, TimerComponent, TimeFormatPipe, SizerDirective],
+      declarations: [BoardComponent, CardComponent, TimerComponent, TimeFormatPipe, TextSegmentPipe, SizerDirective],
       providers: [{ provide: BoardService, useValue: mockedBoardService }],
     }).compileComponents();
 

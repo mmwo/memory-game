@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardComponent } from './card.component';
-import { CardModel } from '@app/memory/models';
+import { CardModel, TextCardModel } from '@app/memory/models';
 import { Component, ViewChild } from '@angular/core';
 import { setTimeoutPromise } from '@app/testUtil';
+import { TextSegmentPipe } from '@app/memory/pipes/text-segment.pipe';
 
 @Component({
   template: '<div><app-card [card]="card"></app-card></div>',
@@ -21,7 +22,7 @@ describe('CardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [WrapperTestCardComponent, CardComponent],
+      declarations: [WrapperTestCardComponent, CardComponent, TextSegmentPipe],
     }).compileComponents();
 
     fixture = TestBed.createComponent(WrapperTestCardComponent);
@@ -37,7 +38,7 @@ describe('CardComponent', () => {
   // should show content when card revealed
   it('should call ngOnChanges', () => {
     // Arrange
-    const card = new CardModel('12345', 'g1');
+    const card = new TextCardModel('12345', 'g1');
     card.revealed = true;
 
     // Act
@@ -51,12 +52,14 @@ describe('CardComponent', () => {
 
   it('should show text', () => {
     // Arrange
-    const card = new CardModel('example test', 'g1');
-    const cardElement = fixture.nativeElement.querySelector('.card');
-    const text = cardElement.querySelectorAll('text')[0];
-    // Act
+    const card = new TextCardModel('example test', 'g1');
     wrapperComponent.card = card;
     fixture.detectChanges();
+
+    // Act
+    const cardElement = fixture.nativeElement.querySelector('.card');
+    const text = cardElement.querySelectorAll('text')[0];
+
     // Assert
     expect(text.innerHTML).toContain(card.value);
   });
@@ -65,7 +68,7 @@ describe('CardComponent', () => {
     // Arrange
     let state: { show: boolean; hide: boolean; revealed: boolean };
     const sub = component.localState$.subscribe((lState) => (state = lState));
-    const card = new CardModel('12345', 'g1');
+    const card = new TextCardModel('12345', 'g1');
     card.revealed = true;
     // Act
     wrapperComponent.card = card;
@@ -85,7 +88,7 @@ describe('CardComponent', () => {
     // Arrange
     let state: { show: boolean; hide: boolean; revealed: boolean };
     const sub = component.localState$.subscribe((lState) => (state = lState));
-    const card = new CardModel('12345', 'g1');
+    const card = new TextCardModel('12345', 'g1');
     card.revealed = false;
     // Act
     wrapperComponent.card = card;
@@ -107,12 +110,12 @@ describe('CardComponent', () => {
 
   it('emits card on click', async () => {
     // Arrange
-    const card = new CardModel('12345', 'g1');
+    const card = new TextCardModel('12345', 'g1');
     card.revealed = false;
 
     // Assert
     let emittedCard;
-    const sub = component.clicked.subscribe((val: CardModel) => (emittedCard = val));
+    const sub = component.clicked.subscribe((val: TextCardModel) => (emittedCard = val));
 
     // Act
     component.card = card;
@@ -124,10 +127,10 @@ describe('CardComponent', () => {
 
   it('should not emit on click if card already revealed', async () => {
     // Arrange
-    let shouldStayUndefined: CardModel;
-    const card = new CardModel('12345', 'g1');
+    let shouldStayUndefined: TextCardModel;
+    const card = new TextCardModel('12345', 'g1');
     card.revealed = true;
-    const sub = component.clicked.subscribe((emittedCard: CardModel) => (shouldStayUndefined = emittedCard));
+    const sub = component.clicked.subscribe((emittedCard: TextCardModel) => (shouldStayUndefined = emittedCard));
 
     // Act
     component.card = card;

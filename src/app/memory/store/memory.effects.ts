@@ -6,6 +6,7 @@ import { getMemoryGame, isGameCompleted } from '@app/memory/store/memory.selecto
 import { filter, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ScoreService } from '@app/memory/services/score.service';
+import { StorageService } from '@app/memory/services/storage.service';
 
 @Injectable()
 export class MemoryEffects {
@@ -14,9 +15,15 @@ export class MemoryEffects {
     withLatestFrom(this.store$.select(getMemoryGame)),
     switchMap(([_, game]) => {
       console.log('GAME COMPLETED!!!', game, 'Score:', this.scoreService.calc(game));
+      this.storage.saveStats(game);
       return of(); // todo implementation of persistance
     })
   );
 
-  constructor(private store$: Store<AppState>, private actions$: Actions, private scoreService: ScoreService) {}
+  constructor(
+    private store$: Store<AppState>,
+    private actions$: Actions,
+    private scoreService: ScoreService,
+    private storage: StorageService
+  ) {}
 }

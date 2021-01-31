@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CardModel } from '@app/memory/models';
+import { Board, Card, CardModel, MemoryConfig } from '@app/memory/models';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/app.reducers';
 import * as memoryActions from '@app/memory/store/memory.actions';
@@ -31,10 +31,10 @@ export class BoardService {
     return this.store.select(fromMemory.isGameCompleted);
   }
 
-  buildBoard(cards: string[], timer: TimerComponent): void {
+  buildBoard(board: Board, timer: TimerComponent, config: MemoryConfig): void {
     this.timer = timer;
     this.resetData();
-    const game = this.boardBuilder.build(cards);
+    const game = this.boardBuilder.build(board, config);
 
     this.store.dispatch(memoryActions.gameStarted({ game }));
   }

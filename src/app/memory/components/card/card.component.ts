@@ -32,6 +32,7 @@ export class CardComponent implements OnChanges {
   card: CardModel;
   @Output() clicked = new EventEmitter<CardModel>();
   localState$ = this.localState.value$;
+
   constructor(public localState: LocalStateService<{ show: boolean; hide: boolean; revealed: boolean }>) {}
 
   onClick() {

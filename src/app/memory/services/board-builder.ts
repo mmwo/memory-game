@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CardModel, MemoryGame, UniqueId } from '@app/memory/models';
+import { Board, Card, ImgCardModel, MemoryConfig, MemoryGame, TextCardModel, UniqueId } from '@app/memory/models';
 
 @Injectable({
   providedIn: 'root',
@@ -7,12 +7,20 @@ import { CardModel, MemoryGame, UniqueId } from '@app/memory/models';
 export class BoardBuilderService {
   constructor() {}
 
-  build(cards: string[]): MemoryGame {
-    const builder = (card: string) => {
+  build(board: Board, config: MemoryConfig): MemoryGame {
+    const builder = (card: Card) => {
       const groupId = UniqueId();
-      return [new CardModel(card, groupId), new CardModel(card, groupId)];
+      switch (config.type) {
+        case 'img':
+          return [new ImgCardModel(card.img, groupId), new ImgCardModel(card.img, groupId)];
+        case 'text':
+          return [new TextCardModel(card.text, groupId), new TextCardModel(card.text, groupId)];
+        case 'mixed':
+          return [new ImgCardModel(card.img, groupId), new TextCardModel(card.text, groupId)];
+      }
     };
+    const cards = board.cards.shuffle().slice(0, config.elems).map(builder).flat().shuffle();
 
-    return new MemoryGame(UniqueId(), cards.map(builder).flat().shuffle());
+    return new MemoryGame(board.id, cards, config);
   }
 }

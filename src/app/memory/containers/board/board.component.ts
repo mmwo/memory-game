@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { BoardService } from '@app/memory/services/board.service';
 import { Observable } from 'rxjs';
-import { CardModel } from '@app/memory/models';
+import { Board, CardModel, MemoryConfig } from '@app/memory/models';
 import { TimerComponent } from '@app/memory/components/timer/timer.component';
 import { delay, tap } from 'rxjs/operators';
+import { StorageService } from '@app/memory/services/storage.service';
 
 @Component({
   selector: 'app-board',
@@ -17,43 +18,22 @@ export class BoardComponent implements OnInit {
   isCompleted$: Observable<boolean>;
 
   @ViewChild('timer', { static: true }) timer: TimerComponent;
-  public sizes = [
-    { size: '7x6', elems: 21 },
-    { size: '6x6', elems: 18 },
-    { size: '6x5', elems: 15 },
-    { size: '5x4', elems: 10 },
-    { size: '4x4', elems: 8 },
-    { size: '2x2', elems: 2 },
+  public sizes: MemoryConfig[] = [
+    { size: '7x6', elems: 21, type: 'mixed' }, // 0
+    { size: '6x6', elems: 18, type: 'text' }, // 1
+    { size: '6x5', elems: 15, type: 'img' }, // 2
+    { size: '5x4', elems: 10, type: 'text' }, // 3
+    { size: '4x4', elems: 8, type: 'mixed' }, // 4
+    { size: '4x3', elems: 6, type: 'img' }, // 5
+    { size: '2x2', elems: 2, type: 'img' }, // 6
   ];
-  public selected = this.sizes[5];
+  public selectedCfg = this.sizes[6];
 
-  private cardsToSelect = [
-    'Orange',
-    'Apple',
-    'Keyboard',
-    'Card',
-    'Mikołaj',
-    'Tea',
-    'To be',
-    'Chuck Norris and his low kick',
-    'Banana',
-    'Tomato',
-    'Potato',
-    'Car',
-    'Bee',
-    'Table',
-    'Coconut',
-    '8-ball',
-    'Camera',
-    'Glass',
-    'Hippo',
-    'Window',
-    'Sugar',
-    'Book',
-    'Ananas',
-    'Phone',
-  ];
-  constructor(private boardService: BoardService) {}
+  private board: Board;
+
+  constructor(private boardService: BoardService, private storage: StorageService) {
+    this.board = this.storage.fetchBoard('asdf');
+  }
 
   trackByFn = (card: CardModel) => card.id;
 
@@ -65,7 +45,7 @@ export class BoardComponent implements OnInit {
       tap((isCompleted: boolean) => (isCompleted === true ? this.timer.stop() : this.timer.start()))
     );
 
-    this.boardService.buildBoard(this.cardsToSelect.shuffle().splice(0, this.selected.elems), this.timer);
+    this.boardService.buildBoard(this.board, this.timer, this.selectedCfg);
   }
 
   onCardClick(card: CardModel) {
@@ -73,6 +53,6 @@ export class BoardComponent implements OnInit {
   }
 
   playAgain($e: MouseEvent) {
-    this.boardService.buildBoard(this.cardsToSelect.shuffle().splice(0, this.selected.elems), this.timer);
+    this.boardService.buildBoard(this.board, this.timer, this.selectedCfg);
   }
 }

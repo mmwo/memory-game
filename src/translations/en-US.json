@@ -1,7 +1,6 @@
 {
   "APP_NAME": "Memory",
   "About": "About",
-  "Hello world !": "Hello world !",
   "Home": "Home",
   "Logged in as": "Logged in as",
   "Login": "Login",
@@ -15,5 +14,6 @@
   "Version": "Version",
   "Checks": "Checks",
   "Time": "Time",
-  "Play again": "Play again"
+  "Play again": "Play again",
+  "Build your set": "Build your set"
 }

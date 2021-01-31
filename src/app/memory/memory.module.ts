@@ -11,9 +11,19 @@ import { TimeFormatPipe } from './pipes/time-format.pipe';
 import { TimerComponent } from './components/timer/timer.component';
 import { GameBuilderComponent } from './containers/game-builder/game-builder.component';
 import { SizerDirective } from './directives/sizer.directive';
+import { TextSegmentPipe } from '@app/memory/pipes/text-segment.pipe';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, MemoryRoutingModule],
-  declarations: [BoardComponent, CardComponent, TimeFormatPipe, TimerComponent, GameBuilderComponent, SizerDirective],
+  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, MemoryRoutingModule, ToastrModule],
+  declarations: [
+    BoardComponent,
+    CardComponent,
+    TimeFormatPipe,
+    TextSegmentPipe,
+    TimerComponent,
+    GameBuilderComponent,
+    SizerDirective,
+  ],
 })
 export class MemoryModule {}

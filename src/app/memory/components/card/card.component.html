@@ -1,11 +1,12 @@
-<ng-container *ngIf="localState$ | async as state">
+<ng-container *ngIf="card && localState$ | async as state">
   <div
     class="card item noselect"
     [ngClass]="{ show: state.show, hide: state.hide, reveal: state.revealed }"
     (click)="onClick()"
   >
-    <div class="content flex-center">
+    <div class="content flex-center" [ngSwitch]="card.type">
       <svg
+        *ngSwitchCase="'text'"
         version="1.1"
         id="banner"
         xmlns="http://www.w3.org/2000/svg"
@@ -25,9 +26,20 @@
           color="grey"
           style="font-size: 16px; fill: grey"
         >
-          {{ card ? card.value : '' }}
+          <tspan
+            *ngFor="let segment of card.value | textSegment; let i = index"
+            [attr.dy]="16 * i"
+            x="50%"
+            text-anchor="middle"
+          >
+            {{ segment }}
+          </tspan>
         </text>
       </svg>
+      <div *ngSwitchCase="'img'">
+        <img class="card-img" [attr.src]="card.value" alt="" />
+      </div>
+      <div *ngSwitchDefault>??</div>
     </div>
   </div>
 </ng-container>

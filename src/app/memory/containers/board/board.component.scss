@@ -25,6 +25,11 @@
     grid-template-rows: repeat(2, 49.5%);
   }
 
+  &.size4x3 {
+    grid-template-columns: repeat(4, 24.3%);
+    grid-template-rows: repeat(4, 32.3%);
+  }
+
   &.size4x4 {
     grid-template-columns: repeat(4, 24.3%);
     grid-template-rows: repeat(4, 24.3%);
