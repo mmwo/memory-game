@@ -21,6 +21,9 @@ export const memoryReducer = createReducer<MemoryState>(
   on(memoryActions.gameStarted, (state, { game }) => {
     return { ...state, game };
   }),
+  on(memoryActions.gameGivenUp, (state) => {
+    return { ...state, game: undefined };
+  }),
   on(memoryActions.cardRevealed, (state, { cardId, time }) => {
     const cards = setRevealedStatus(state.game.cards, cardId, true);
     return { ...state, game: { ...state.game, cards, moves: state.game.moves + 1, playedTime: time } };

@@ -13,9 +13,20 @@ import { GameBuilderComponent } from './containers/game-builder/game-builder.com
 import { SizerDirective } from './directives/sizer.directive';
 import { TextSegmentPipe } from '@app/memory/pipes/text-segment.pipe';
 import { ToastrModule } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, MemoryRoutingModule, ToastrModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    CoreModule,
+    SharedModule,
+    MemoryRoutingModule,
+    ToastrModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+  ],
   declarations: [
     BoardComponent,
     CardComponent,

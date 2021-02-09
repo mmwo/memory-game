@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root',
 })
-export class StorageService {
+export class ApiStorageService {
   private readonly GAMES = 'GAMES';
   private readonly STATS = 'STATS';
 

@@ -58,6 +58,10 @@ export class BoardService {
     this.timeout = setTimeout(this.revertTemporary.bind(this), 2000);
   }
 
+  giveUp(): void {
+    this.store.dispatch(memoryActions.gameGivenUp());
+  }
+
   private revertTemporary(): void {
     this.revealed.forEach((cardId) => this.store.dispatch(memoryActions.cardConcealed({ cardId })));
     this.resetData();

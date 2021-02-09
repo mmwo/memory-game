@@ -1,4 +1,7 @@
-:host {
-  display: flex;
-  flex: 1;
+::ng-deep .hide-background {
+  .card.card-background {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
 }

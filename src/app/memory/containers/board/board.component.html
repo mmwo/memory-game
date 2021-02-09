@@ -1,11 +1,17 @@
-<div class="board" appSizer="{{ selectedCfg.size }}">
+<div class="board" appSizer="{{ form.value.size.className }}">
   <div class="board-cover flex-center" *ngIf="isCompleted$ | async; else game">
-    <button class="mat-button-bigger pointer" (click)="playAgain($event)">
-      <span translate>Play again</span>
+    <div class="pb-3 flex-center" [formGroup]="form">
+      <label for="size" class="mb-0 mx-2">Select size</label>
+      <ng-select id="size" [items]="sizes" bindLabel="className" [clearable]="false" formControlName="size"></ng-select>
+      <label for="type" class="mb-0 mx-2">Select type</label>
+      <ng-select id="type" [items]="types" [clearable]="false" formControlName="type"></ng-select>
+    </div>
+    <button class="button-bigger btn btn-info pointer" (click)="play($event)">
+      <span translate>Start playing</span>
     </button>
   </div>
   <ng-template #game>
-    <div class="board-content {{ 'size' + selectedCfg.size }}">
+    <div class="board-content {{ 'size' + form.value.size.className }}">
       <app-card
         *ngFor="let card of cards$ | async; trackBy: trackByFn"
         [card]="card"
@@ -14,12 +20,11 @@
     </div>
   </ng-template>
 
-  <div class="board-footer">
-    <p class="d-inline-block">
+  <div class="board-footer" [class.d-none]="!timer.currentTick">
+    <p class="d-inline-block mt-3">
       {{ 'Checks' | translate }}
       : {{ moves$ | async }}
+      <app-timer #timer>{{ 'Time' | translate }}:&nbsp;</app-timer>
     </p>
-    &nbsp;
-    <app-timer class="d-inline-block" #timer>{{ 'Time' | translate }}:&nbsp;</app-timer>
   </div>
 </div>

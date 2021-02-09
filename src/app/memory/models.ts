@@ -48,8 +48,10 @@ export interface Memory {
 }
 
 export interface MemoryConfig {
-  size: '7x6' | '6x6' | '6x5' | '5x4' | '4x4' | '4x3' | '2x2'; // supported
-  elems: number;
+  size: {
+    className: '7x6' | '6x6' | '6x5' | '5x4' | '4x4' | '4x3' | '2x2'; // supported sizes by scss
+    elems: number;
+  };
   type: 'text' | 'img' | 'mixed';
 }
 

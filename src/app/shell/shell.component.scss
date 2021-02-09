@@ -6,9 +6,6 @@
   min-height: calc(100vh - 31px);
   height: auto;
 }
-.body-fitted-height {
-  min-height: calc(100vh - 102px);
-}
 
 .main-content {
   height: calc(100vh - 100px);
@@ -17,9 +14,22 @@
 
 .card {
   padding-top: 15px;
-  margin-bottom: 7px;
+  margin-bottom: 5px;
 }
 
 .main-panel {
   padding-top: 69px;
+}
+
+.body-fitted-height {
+  min-height: calc(100vh - 102px);
+}
+
+.card-body {
+  &::before {
+    content: "";
+    width: 100%;
+    display: block;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+  }
 }

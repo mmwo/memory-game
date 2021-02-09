@@ -1,29 +1,34 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { ROUTES } from '../sidebar/sidebar.component';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { I18nService } from '@app/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   location: Location;
   mobile_menu_visible: any = 0;
   public isCollapsed = true;
-  private listTitles: any[];
   private toggleButton: any;
 
   private sidebarVisible: boolean;
 
-  constructor(location: Location, private element: ElementRef, private router: Router) {
+  constructor(
+    location: Location,
+    private element: ElementRef,
+    private router: Router,
+    private titleService: Title,
+    private i18nService: I18nService
+  ) {
     this.location = location;
     this.sidebarVisible = false;
   }
 
   ngOnInit() {
-    this.listTitles = ROUTES.filter((listTitle) => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
     this.router.events.subscribe((event) => {
@@ -36,15 +41,21 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  setLanguage(language: string) {
+    this.i18nService.language = language;
+  }
+
+  get languages(): string[] {
+    return this.i18nService.supportedLanguages;
+  }
+
   collapse() {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName('nav')[0];
-    console.log(navbar);
+
     if (!this.isCollapsed) {
-      navbar.classList.remove('navbar-transparent');
       navbar.classList.add('bg-white');
     } else {
-      navbar.classList.add('navbar-transparent');
       navbar.classList.remove('bg-white');
     }
   }
@@ -77,8 +88,6 @@ export class NavbarComponent implements OnInit {
 
   sidebarToggle() {
     let $layer: HTMLElement;
-    // const toggleButton = this.toggleButton;
-    // const html = document.getElementsByTagName('html')[0];
     const $toggle = document.getElementsByClassName('navbar-toggler')[0];
 
     if (this.sidebarVisible === false) {
@@ -110,7 +119,7 @@ export class NavbarComponent implements OnInit {
 
       setTimeout(() => $layer.classList.add('visible'), 100);
 
-      // asign a function
+      // assign a function
       $layer.onclick = function () {
         html.classList.remove('nav-open');
         this.mobile_menu_visible = 0;
@@ -127,17 +136,6 @@ export class NavbarComponent implements OnInit {
   }
 
   getTitle() {
-    let titlee = this.location.prepareExternalUrl(this.location.path());
-    if (titlee.charAt(0) === '#') {
-      titlee = titlee.slice(2);
-    }
-    titlee = titlee.split('/').pop();
-
-    for (const item of this.listTitles) {
-      if (item.path === titlee) {
-        return item.title;
-      }
-    }
-    return 'Dashboard';
+    return this.titleService.getTitle();
   }
 }

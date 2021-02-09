@@ -7,7 +7,7 @@
   }
 }
 
-:host {
+.board {
   position: relative;
   margin: 10px auto;
   max-width: 1000px;
@@ -27,7 +27,7 @@
 
   &.size4x3 {
     grid-template-columns: repeat(4, 24.3%);
-    grid-template-rows: repeat(4, 32.3%);
+    grid-template-rows: repeat(4, 24.3%);
   }
 
   &.size4x4 {
@@ -37,12 +37,12 @@
 
   &.size5x4 {
     grid-template-columns: repeat(5, 19.2%);
-    grid-template-rows: repeat(4, 24.3%);
+    grid-template-rows: repeat(4, 19.2%);
   }
 
   &.size6x5 {
     grid-template-columns: repeat(6, 15.83%);
-    grid-template-rows: repeat(5, 19.2%);
+    grid-template-rows: repeat(5, 15.83%);
   }
 
   &.size6x6 {
@@ -52,7 +52,7 @@
 
   &.size7x6 {
     grid-template-columns: repeat(7, 13.42%);
-    grid-template-rows: repeat(6, 15.83%);
+    grid-template-rows: repeat(6, 13.42%);
   }
 
   -webkit-perspective: 1200px;
@@ -68,7 +68,7 @@
   text-align: center;
   color: #fff;
   position: absolute;
-  bottom: calc(50% - 80px);
+  bottom: calc(50% - 103px);
   left: 0;
   right: 0;
 }
@@ -85,6 +85,15 @@
   width: 100%;
   height: calc(100% - 40px);
   background: #030303c9;
+  flex-direction: column;
+
+  .ng-select {
+    min-width: 80px;
+  }
+  label {
+    font-size: 22px;
+    color: white;
+  }
 }
 
 .d-inline-block {

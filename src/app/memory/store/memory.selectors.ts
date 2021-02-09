@@ -10,6 +10,6 @@ export const isGameCompleted = createSelector(getCards, (cards) => {
   if (cards !== undefined) {
     return cards.find((c) => c.revealed === false) === undefined;
   } else {
-    return undefined;
+    return true;
   }
 });

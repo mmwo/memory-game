@@ -1,67 +1,12 @@
-import { Title } from '@angular/platform-browser';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Location, PopStateEvent } from '@angular/common';
-
-import { I18nService } from '@app/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss'],
 })
-export class ShellComponent implements OnInit, AfterViewInit {
-  private lastPoppedUrl: string;
+export class ShellComponent implements OnInit {
+  constructor() {}
 
-  constructor(
-    private router: Router,
-    private titleService: Title,
-    private i18nService: I18nService,
-    public location: Location
-  ) {}
-
-  setLanguage(language: string) {
-    this.i18nService.language = language;
-  }
-
-  get languages(): string[] {
-    return this.i18nService.supportedLanguages;
-  }
-
-  get title(): string {
-    return this.titleService.getTitle();
-  }
-
-  ngOnInit() {
-    this.location.subscribe((ev: PopStateEvent) => {
-      this.lastPoppedUrl = ev.url;
-    });
-  }
-
-  ngAfterViewInit() {
-    this.runOnRouteChange();
-  }
-
-  isWindows() {
-    return navigator.platform.indexOf('Win') > -1;
-  }
-  isMaps(path: string) {
-    let title = this.location.prepareExternalUrl(this.location.path());
-    title = title.slice(1);
-    return path !== title;
-  }
-
-  runOnRouteChange(): void {
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      const elemMainPanel = document.querySelector('.main-panel') as HTMLElement;
-    }
-  }
-
-  isMac(): boolean {
-    let bool = false;
-    if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
-      bool = true;
-    }
-    return bool;
-  }
+  ngOnInit() {}
 }

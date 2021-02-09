@@ -1,0 +1,28 @@
+<div class="stats">
+  <!-- todo total number of pairs revealed by week -->
+  <canvas
+    baseChart
+    id="bigDashboardChart"
+    [datasets]="lineBigDashboardChartData"
+    [labels]="lineBigDashboardChartLabels"
+    [colors]="lineBigDashboardChartColors"
+    [options]="lineBigDashboardChartOptions"
+    [chartType]="lineBigDashboardChartType"
+    (chartHover)="chartHovered($event)"
+    (chartClick)="chartClicked($event)"
+  ></canvas>
+</div>
+<div class="row mt-minus-30">
+  <div class="col">
+    <!-- todo games played -->
+    <div class="card card-chart" style="height: 200px">A</div>
+  </div>
+  <div class="col">
+    <!-- todo cards added to the system-->
+    <div class="card card-chart" style="height: 200px">B</div>
+  </div>
+  <div class="col">
+    <!-- todo most frequent miss -->
+    <div class="card card-chart" style="height: 200px">C</div>
+  </div>
+</div>

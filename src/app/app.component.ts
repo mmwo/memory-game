@@ -16,6 +16,7 @@ const log = new Logger('App');
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  hideBackground = false;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -53,6 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe((event) => {
         const title = event.title;
+        this.hideBackground = event.background === false;
         if (title) {
           this.titleService.setTitle(this.translateService.instant(title));
         }

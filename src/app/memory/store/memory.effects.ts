@@ -6,13 +6,13 @@ import { getMemoryGame, isGameCompleted } from '@app/memory/store/memory.selecto
 import { filter, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ScoreService } from '@app/memory/services/score.service';
-import { StorageService } from '@app/memory/services/storage.service';
+import { ApiStorageService } from '@app/memory/services/api-storage.service';
 
 @Injectable()
 export class MemoryEffects {
   @Effect() gameSave$ = this.store$.select(isGameCompleted).pipe(
     filter((isCompleted) => isCompleted === true),
-    withLatestFrom(this.store$.select(getMemoryGame)),
+    withLatestFrom(this.store$.select(getMemoryGame).pipe(filter((game) => !!game))),
     switchMap(([_, game]) => {
       console.log('GAME COMPLETED!!!', game, 'Score:', this.scoreService.calc(game));
       this.storage.saveStats(game);
@@ -24,6 +24,6 @@ export class MemoryEffects {
     private store$: Store<AppState>,
     private actions$: Actions,
     private scoreService: ScoreService,
-    private storage: StorageService
+    private storage: ApiStorageService
   ) {}
 }

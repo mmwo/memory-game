@@ -19,7 +19,7 @@ export class BoardBuilderService {
           return [new ImgCardModel(card.img, groupId), new TextCardModel(card.text, groupId)];
       }
     };
-    const cards = board.cards.shuffle().slice(0, config.elems).map(builder).flat().shuffle();
+    const cards = board.cards.shuffle().slice(0, config.size.elems).map(builder).flat().shuffle();
 
     return new MemoryGame(board.id, cards, config);
   }
