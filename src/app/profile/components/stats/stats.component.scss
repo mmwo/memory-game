@@ -1,8 +1,11 @@
 .stats {
   flex-grow: 1;
-  height: 300px;
+  height: 340px;
   background: #2c2c2c;
   margin: 0 -30px;
+  canvas {
+    padding-bottom: 40px;
+  }
 }
 
 .mt-minus-30 {

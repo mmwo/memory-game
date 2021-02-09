@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChartOptions, ChartType } from 'chart.js';
 
 @Component({
   selector: 'app-stats',
@@ -25,32 +26,8 @@ export class StatsComponent implements OnInit {
     pointHoverBackgroundColor: string;
   }[];
   public lineBigDashboardChartLabels: string[];
-  public lineBigDashboardChartOptions: {
-    layout: { padding: { top: number; left: number; bottom: number; right: number } };
-    legend: { display: boolean; fillStyle: string; position: string };
-    scales: {
-      yAxes: {
-        ticks: { padding: number; beginAtZero: boolean; fontStyle: string; maxTicksLimit: number; fontColor: string };
-        gridLines: { drawBorder: boolean; color: string; display: boolean; zeroLineColor: string; drawTicks: boolean };
-      }[];
-      xAxes: {
-        ticks: { padding: number; fontStyle: string; fontColor: string };
-        gridLines: { display: boolean; zeroLineColor: string };
-      }[];
-    };
-    maintainAspectRatio: boolean;
-    tooltips: {
-      mode: string;
-      titleFontColor: string;
-      backgroundColor: string;
-      intersect: number;
-      bodySpacing: number;
-      bodyFontColor: string;
-      position: string;
-      xPadding: number;
-    };
-  };
-  public lineBigDashboardChartType: string;
+  public lineBigDashboardChartOptions: ChartOptions;
+  public lineBigDashboardChartType: ChartType;
   private canvas: HTMLCanvasElement;
   private ctx: any;
   private gradientStroke: CanvasGradient;
@@ -128,12 +105,11 @@ export class StatsComponent implements OnInit {
         bodySpacing: 4,
         xPadding: 12,
         mode: 'nearest',
-        intersect: 0,
+        intersect: false,
         position: 'nearest',
       },
       legend: {
         position: 'bottom',
-        fillStyle: '#FFF',
         display: false,
       },
       scales: {
