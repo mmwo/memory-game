@@ -2,10 +2,10 @@ import { SizerDirective } from './sizer.directive';
 import { Component, DebugElement, Renderer2, Type } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { CoreModule } from '@app/core';
+import { CoreModule } from '@core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({

@@ -1,4 +1,4 @@
-# memory
+# ngX-Rocket
 
 Welcome to the project documentation!
 

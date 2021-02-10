@@ -37,6 +37,7 @@ export class StatsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    console.log('profile-stats');
     this.chartColor = '#FFFFFF';
 
     this.canvas = document.getElementById('bigDashboardChart') as HTMLCanvasElement;

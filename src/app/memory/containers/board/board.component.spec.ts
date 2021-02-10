@@ -1,8 +1,8 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CoreModule } from '@app/core';
-import { SharedModule } from '@app/shared';
+import { CoreModule } from '@core';
+import { SharedModule } from '@shared';
 import { BoardComponent } from './board.component';
 import { BoardService } from '@app/memory/services/board.service';
 import { CardComponent } from '@app/memory/components/card/card.component';

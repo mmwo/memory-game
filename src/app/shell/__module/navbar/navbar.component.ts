@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { I18nService } from '@app/core';
+import { I18nService } from '@app/i18n';
 import { Title } from '@angular/platform-browser';
+import { AuthenticationService } from '@app/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
     location: Location,
     private element: ElementRef,
     private router: Router,
+    private authenticationService: AuthenticationService,
     private titleService: Title,
     private i18nService: I18nService
   ) {
@@ -137,5 +139,9 @@ export class NavbarComponent implements OnInit {
 
   getTitle() {
     return this.titleService.getTitle();
+  }
+
+  logout() {
+    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
 }

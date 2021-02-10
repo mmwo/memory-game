@@ -1,5 +1,4 @@
 import 'jest-preset-angular';
-import './polyfills';
 
 /* global mocks for jsdom */
 const storageMock = () => {
@@ -44,8 +43,6 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: () => {},
   }),
 });
-
-console.error = console.log;
 
 /* output shorter and more meaningful Zone error stack traces */
 // Error.stackTraceLimit = 2;

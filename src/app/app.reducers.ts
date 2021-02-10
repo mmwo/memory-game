@@ -1,14 +1,12 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '@env/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
-import { memoryReducer, MemoryState } from '@app/memory/store/memory.reducer';
 
+// tslint:disable-next-line:no-empty-interface
 export interface AppState {
-  memory: MemoryState; //
+  memory?: any;
 }
 
-export const reducers: ActionReducerMap<AppState> = {
-  memory: memoryReducer,
-};
+export const reducers: ActionReducerMap<AppState> = {};
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [storeFreeze] : [];

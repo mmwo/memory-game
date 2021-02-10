@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CardModel } from '@app/memory/models';
-import { LocalStateService } from '@app/shared/services/local-state-service';
+import { LocalStateService } from '@shared/services/local-state-service';
 
 @Component({
   selector: 'app-card',
