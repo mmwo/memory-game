@@ -8,9 +8,9 @@ import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 
 const routes: Routes = [
   Shell.childRoutes([
-    { path: '', redirectTo: '/stats', pathMatch: 'full' },
-    { path: 'details', component: ProfileDetailsComponent, data: { title: marker('Details') } },
-    { path: 'stats', component: StatsComponent, data: { title: marker('Statistics'), background: false } },
+    { path: '', redirectTo: '/profile/stats', pathMatch: 'full' },
+    { path: 'profile/details', component: ProfileDetailsComponent, data: { title: marker('Details') } },
+    { path: 'profile/stats', component: StatsComponent, data: { title: marker('Statistics'), background: false } },
   ]),
 ];
 
