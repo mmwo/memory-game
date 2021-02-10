@@ -1,6 +1,7 @@
 ﻿import { Board, MemoryGame } from '@app/memory/models';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import moment, { Moment } from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,21 @@ export class ApiStorageService {
       stats[game.boardId].push(game);
     }
     localStorage.setItem(this.STATS, JSON.stringify(stats));
+  }
+
+  fetchStats(fromDate: Moment, toDate: Moment): MemoryGame[] {
+    const stats = JSON.parse(localStorage.getItem(this.STATS) || '{}');
+    const filteredStats: MemoryGame[] = [];
+    Object.values(stats).forEach((games: MemoryGame[]) => {
+      const filteredGames = games.filter((game) => {
+        const startedAt = moment(game.startedAt);
+        return fromDate.isSameOrBefore(startedAt) && toDate.isSameOrAfter(startedAt);
+      });
+      if (filteredGames.length) {
+        filteredStats.push(...filteredGames);
+      }
+    });
+    return filteredStats;
   }
 
   fetchBoard(id: string): Board {

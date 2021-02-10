@@ -59,6 +59,7 @@ export class BoardService {
   }
 
   giveUp(): void {
+    clearTimeout(this.timeout);
     this.store.dispatch(memoryActions.gameGivenUp());
   }
 

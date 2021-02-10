@@ -1,16 +1,24 @@
 import { MemoryState } from '@app/memory/store/memory.reducer';
-import { CardModel, MemoryGame } from '@app/memory/models';
+import { CardModel, MemoryGame, TextCardModel } from '@app/memory/models';
 import { getCards, getMemoryGame, getMoves, isGameCompleted } from '@app/memory/store/memory.selectors';
 
 const mockedCards: CardModel[] = [
-  new CardModel('v1', 'g1'),
-  new CardModel('v1', 'g1'),
-  new CardModel('v2', 'g2'),
-  new CardModel('v2', 'g2'),
+  new TextCardModel('c1', 'g1'),
+  new TextCardModel('c1', 'g1'),
+  new TextCardModel('c2', 'g2'),
+  new TextCardModel('c2', 'g2'),
 ];
 
 const mockMemoryState: MemoryState = {
-  game: new MemoryGame('boardId', mockedCards),
+  game: new MemoryGame(
+    'boardId',
+    mockedCards,
+    {
+      size: { className: '2x2', elems: 2 },
+      type: 'text',
+    },
+    new Date().toISOString()
+  ),
   totalPlayedTime: 0,
   totalScore: 0,
   gameLog: [],

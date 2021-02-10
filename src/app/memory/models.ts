@@ -42,6 +42,7 @@ export class ImgCardModel extends CardModel {
 }
 
 export interface Memory {
+  startedAt: string;
   boardId: string;
   playedTime: number;
   moves: number;
@@ -62,6 +63,7 @@ export class MemoryGame implements Memory {
   constructor(
     public readonly boardId: string,
     public readonly cards: CardModel[],
-    public readonly config: MemoryConfig
+    public readonly config: MemoryConfig,
+    public readonly startedAt: string
   ) {}
 }

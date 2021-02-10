@@ -6,7 +6,7 @@ import { TimerComponent } from '@app/memory/components/timer/timer.component';
 import { TimeFormatPipe } from '@app/memory/pipes/time-format.pipe';
 import { createSpyObj } from 'jest-createspyobj';
 import { cardConcealed, cardRevealed, gameStarted } from '@app/memory/store/memory.actions';
-import { CardModel, MemoryGame } from '@app/memory/models';
+import { MemoryGame, TextCardModel } from '@app/memory/models';
 import { BoardBuilderService } from '@app/memory/services/board-builder';
 
 describe('BoardService', () => {
@@ -15,12 +15,20 @@ describe('BoardService', () => {
   let timer: TimerComponent;
   let mockedStore: any;
   let mockedBoardBuilder: any;
-  const game = new MemoryGame('g1', [
-    new CardModel('c1', 'g1'),
-    new CardModel('c1', 'g1'),
-    new CardModel('c2', 'g2'),
-    new CardModel('c2', 'g2'),
-  ]);
+  const game = new MemoryGame(
+    'g1',
+    [
+      new TextCardModel('c1', 'g1'),
+      new TextCardModel('c1', 'g1'),
+      new TextCardModel('c2', 'g2'),
+      new TextCardModel('c2', 'g2'),
+    ],
+    {
+      size: { className: '2x2', elems: 2 },
+      type: 'text',
+    },
+    new Date().toISOString()
+  );
   beforeEach(async(() => {
     mockedStore = createSpyObj<Store<AppState>>(Store, ['dispatch', 'select']);
     mockedBoardBuilder = createSpyObj<BoardBuilderService>(BoardBuilderService, ['build']);
@@ -44,14 +52,44 @@ describe('BoardService', () => {
   });
 
   it('dispatches startGame', () => {
-    boardService.buildBoard(['one', 'two', 'three', 'four'], timer);
+    boardService.buildBoard(
+      {
+        cards: [
+          { img: '', text: 'one' },
+          { text: 'two', img: '' },
+          {
+            text: 'three',
+            img: '',
+          },
+          { text: 'four', img: '' },
+        ],
+        id: '1',
+      },
+      timer,
+      game.config
+    );
     expect(mockedStore.dispatch).toHaveBeenCalledTimes(1);
     expect(mockedStore.dispatch).toHaveBeenCalledWith(gameStarted({ game }));
   });
 
   it('dispatches card revealed and auto concealed after 2 seconds', fakeAsync(() => {
     timer.currentTick = 5;
-    boardService.buildBoard(['one', 'two', 'three', 'four'], timer);
+    boardService.buildBoard(
+      {
+        cards: [
+          { img: '', text: 'one' },
+          { text: 'two', img: '' },
+          {
+            text: 'three',
+            img: '',
+          },
+          { text: 'four', img: '' },
+        ],
+        id: '1',
+      },
+      timer,
+      game.config
+    );
     boardService.revealCard(game.cards[1]);
     expect(mockedStore.dispatch.mock.calls[1][0]).toEqual(
       cardRevealed({ cardId: game.cards[1].id, time: timer.currentTick })
@@ -63,7 +101,22 @@ describe('BoardService', () => {
 
   it('should not call conceal after same group is matched', fakeAsync(() => {
     timer.currentTick = 4;
-    boardService.buildBoard(['one', 'two', 'three', 'four'], timer);
+    boardService.buildBoard(
+      {
+        cards: [
+          { img: '', text: 'one' },
+          { text: 'two', img: '' },
+          {
+            text: 'three',
+            img: '',
+          },
+          { text: 'four', img: '' },
+        ],
+        id: '1',
+      },
+      timer,
+      game.config
+    );
     boardService.revealCard(game.cards[0]);
     boardService.revealCard(game.cards[1]);
     tick(3000);
@@ -75,7 +128,22 @@ describe('BoardService', () => {
   // tslint:disable-next-line:max-line-length
   it('conceals cards when revealing 3rd card and already 2 cards temporarily revealed without group being matched', fakeAsync(() => {
     timer.currentTick = 2;
-    boardService.buildBoard(['one', 'two', 'three', 'four'], timer);
+    boardService.buildBoard(
+      {
+        cards: [
+          { img: '', text: 'one' },
+          { text: 'two', img: '' },
+          {
+            text: 'three',
+            img: '',
+          },
+          { text: 'four', img: '' },
+        ],
+        id: '1',
+      },
+      timer,
+      game.config
+    );
     boardService.revealCard(game.cards[0]);
     boardService.revealCard(game.cards[2]);
     tick(1000);

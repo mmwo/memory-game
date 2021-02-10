@@ -21,6 +21,6 @@ export class BoardBuilderService {
     };
     const cards = board.cards.shuffle().slice(0, config.size.elems).map(builder).flat().shuffle();
 
-    return new MemoryGame(board.id, cards, config);
+    return new MemoryGame(board.id, cards, config, new Date().toISOString());
   }
 }
