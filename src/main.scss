@@ -73,3 +73,17 @@ html {
 .pointer {
   cursor: pointer;
 }
+
+[required],
+[required="true"],
+.required {
+  position: relative;
+
+  &::after {
+    content: "*";
+    color: red;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+}

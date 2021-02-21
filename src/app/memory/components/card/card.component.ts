@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -28,8 +29,8 @@ import { LocalStateService } from '@shared/services/local-state-service';
   ],
 })
 export class CardComponent implements OnChanges {
-  @Input()
-  card: CardModel;
+  @Input() animate: boolean | 1 | 0 | '1' | '0' = true;
+  @Input() card: CardModel;
   @Output() clicked = new EventEmitter<CardModel>();
   localState$ = this.localState.value$;
 
@@ -45,10 +46,16 @@ export class CardComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.card && changes.card.currentValue) {
       const card = changes.card.currentValue;
-      if (card.revealed === true) {
+      // tslint:disable-next-line:triple-equals
+      if (card.revealed === true && this.animate == 1) {
         this.animateShow();
-      } else if (!changes.card.firstChange) {
+        // tslint:disable-next-line:triple-equals
+      } else if (!changes.card.firstChange && this.animate == 1) {
         this.animateHide();
+        // tslint:disable-next-line:triple-equals
+      } else if (this.animate == 0) {
+        // console.log('this.card', this.card);
+        this.localState.setState({ revealed: this.card ? this.card.revealed : false });
       }
     }
   }

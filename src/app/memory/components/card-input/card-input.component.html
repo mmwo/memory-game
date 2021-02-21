@@ -1,0 +1,23 @@
+<div class="card p-3">
+  <div class="card-body py-0">
+    <div class="card-container">
+      <app-card [card]="cardModel" class="required" animate="0"></app-card>
+      <div *ngIf="cardModel.type === 'img'" class="image-overlay d-flex" (click)="onSelectImage($event)">
+        <p class="w-100 text-center align-self-center m-0">Select image</p>
+      </div>
+    </div>
+    <div class="required">
+      <textarea
+        class="form-control mt-2"
+        required
+        rows="3"
+        placeholder="Start typing&#10;and adjust length&#10;with linebreaks"
+        (focus)="updateCardModel('text')"
+        (blur)="updateCardModel('img')"
+        [ngModel]="value.text"
+        (ngModelChange)="onInput($event)"
+      >
+      </textarea>
+    </div>
+  </div>
+</div>

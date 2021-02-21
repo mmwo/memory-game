@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-game-builder',
@@ -6,7 +7,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-builder.component.scss'],
 })
 export class GameBuilderComponent implements OnInit {
-  constructor() {}
+  form = this.fb.group({
+    name: [{ value: '' }, Validators.required],
+    cards: this.fb.array([], Validators.required),
+  });
+  cardsControl = this.form.get('cards') as FormArray;
 
-  ngOnInit() {}
+  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    console.log(this.form.get('cards'));
+  }
+
+  newControlForArray(controlPath: string): AbstractControl {
+    switch (controlPath) {
+      case 'cards':
+        return this.fb.control({
+          text: '',
+          img: '',
+        });
+    }
+  }
+
+  onAddNewCard($event: MouseEvent) {
+    $event.preventDefault();
+    this.cardsControl.push(this.newControlForArray('cards'));
+  }
 }

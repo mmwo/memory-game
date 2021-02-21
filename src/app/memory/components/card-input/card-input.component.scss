@@ -1,0 +1,47 @@
+.add-image {
+  cursor: pointer;
+  color: grey;
+
+  svg {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+app-card {
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.card-container {
+  position: relative;
+  overflow: hidden;
+  transition: 0.5s;
+  &:hover {
+    cursor: pointer;
+
+    .image-overlay {
+      opacity: 100%;
+    }
+  }
+}
+
+.image-overlay {
+  border-radius: 3px;
+  position: absolute;
+  bottom: calc(50% - 37.5px);
+  opacity: 0;
+  width: 100%;
+  height: 70px;
+  box-shadow: 0 0 5px 0 #c7c7c7;
+  background: rgba(127, 127, 127, 0.45);
+  transition: 0.5s;
+}
+
+p {
+  font-size: 18px;
+  color: white;
+  text-shadow: 0 0 6px black;
+}

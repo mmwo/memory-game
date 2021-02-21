@@ -24,15 +24,15 @@
           text-anchor="middle"
           font-family="Roboto"
           color="grey"
-          style="font-size: 16px; fill: grey"
+          style="font-size: 14px; fill: grey"
         >
           <tspan
             *ngFor="let segment of card.value | textSegment; let i = index"
-            [attr.dy]="16 * i"
+            [attr.dy]="segment.y"
             x="50%"
             text-anchor="middle"
           >
-            {{ segment }}
+            {{ segment.text }}
           </tspan>
         </text>
       </svg>

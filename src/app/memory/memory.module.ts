@@ -12,12 +12,13 @@ import { GameBuilderComponent } from './containers/game-builder/game-builder.com
 import { SizerDirective } from './directives/sizer.directive';
 import { TextSegmentPipe } from '@app/memory/pipes/text-segment.pipe';
 import { ToastrModule } from 'ngx-toastr';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { StoreModule } from '@ngrx/store';
 import { memoryReducer } from '@app/memory/store/memory.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { MemoryEffects } from '@app/memory/store/memory.effects';
+import { CardInputComponent } from './components/card-input/card-input.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { MemoryEffects } from '@app/memory/store/memory.effects';
     NgSelectModule,
     StoreModule.forFeature('memory', memoryReducer),
     EffectsModule.forFeature([MemoryEffects]),
+    FormsModule,
   ],
   declarations: [
     BoardComponent,
@@ -39,6 +41,7 @@ import { MemoryEffects } from '@app/memory/store/memory.effects';
     TimerComponent,
     GameBuilderComponent,
     SizerDirective,
+    CardInputComponent,
   ],
 })
 export class MemoryModule {}
