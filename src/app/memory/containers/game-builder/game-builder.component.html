@@ -1,30 +1,46 @@
-<div class="p-3" [formGroup]="form">
-  <div class="m-2">
-    <h3>Stwórz nowy zestaw</h3>
-    <label for="name">Nazwa zestawu</label>
-    <input id="name" class="form-control" type="text" />
-  </div>
-  <div formArrayName="cards">
-    <app-card-input
-      *ngFor="let cardControl of cardsControl.controls"
-      [formControl]="cardControl"
-      class="m-2"
-    ></app-card-input>
-  </div>
-
-  <div class="new-card m-2" (click)="onAddNewCard($event)">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="200"
-      height="200"
-      fill="currentColor"
-      class="bi bi-plus-square"
-      viewBox="0 0 16 16"
-    >
-      <path
-        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
-      />
-      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-    </svg>
-  </div>
+<div class="overflow-auto p-3 position-relative game-builder">
+  <form [formGroup]="form" class="form-horizontal">
+    <div class="py-lg-3 p-sm-2 upper-form row">
+      <div class="col">
+        <div class="upper-form-header d-flex justify-content-between">
+          <h5 class="mt-0 mb-3 h5">Build your card set</h5>
+          <div class="d-flex upper-form-input">
+            <div class="input-wrapper mx-3">
+              <span class="mr-2">Preview all</span>
+              <ng-toggle
+                [value]="false"
+                [width]="70"
+                [height]="28"
+                [margin]="2"
+                [fontSize]="14"
+                [labels]="toggleCfg.labels"
+                [color]="toggleCfg.color"
+                [fontColor]="toggleCfg.fontColor"
+                (change)="onChange($event)"
+              >
+              </ng-toggle>
+            </div>
+            <h5 class="mt-0 mb-3 h5">Required min: {{ cardsControl.controls.length }}/2</h5>
+          </div>
+        </div>
+        <div class="input-wrapper required">
+          <input id="name" class="form-control" placeholder="Name" required type="text" />
+          <label class="control-label">Name</label>
+        </div>
+      </div>
+      <div class="col submit-section col-xs-12 px-0 d-flex align-items-end justify-content-center">
+        <a class="btn btn-info my-0 d-inline submit-btn">Create</a>
+      </div>
+    </div>
+    <div class="cards overflow-auto" formArrayName="cards">
+      <app-card-input
+        *ngFor="let cardControl of cardsControl.controls"
+        [formControl]="cardControl"
+        [defaultPreview]="defaultPreview"
+      ></app-card-input>
+      <div class="card new-card d-flex align-items-center justify-content-center" (click)="onAddNewCard($event)">
+        <i class="fas fa-plus"></i>
+      </div>
+    </div>
+  </form>
 </div>

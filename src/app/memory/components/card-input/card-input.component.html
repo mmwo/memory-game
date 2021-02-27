@@ -13,7 +13,7 @@
         rows="3"
         placeholder="Start typing&#10;and adjust length&#10;with linebreaks"
         (focus)="updateCardModel('text')"
-        (blur)="updateCardModel('img')"
+        (blur)="updateCardModel(this.defaultPreview)"
         [ngModel]="value.text"
         (ngModelChange)="onInput($event)"
       >

@@ -1,4 +1,4 @@
-import { Component, forwardRef, Inject, Input, OnInit, Optional } from '@angular/core';
+import { Component, forwardRef, Inject, Input, OnChanges, OnInit, Optional, SimpleChanges } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Card, CardModel, ImgCardModel, TextCardModel } from '@app/memory/models';
 import { FORM_ERRORS } from '@shared/form-errors.config';
@@ -15,10 +15,11 @@ import { FORM_ERRORS } from '@shared/form-errors.config';
     },
   ],
 })
-export class CardInputComponent implements OnInit, ControlValueAccessor {
+export class CardInputComponent implements OnChanges, ControlValueAccessor {
   cardModel: CardModel;
   @Input() formControlName: string;
   @Input() disabled = false;
+  @Input() defaultPreview: 'img' | 'text' = 'img';
 
   @Input()
   public set value(value: Card) {
@@ -34,10 +35,9 @@ export class CardInputComponent implements OnInit, ControlValueAccessor {
 
   constructor(@Optional() private controlContainer: ControlContainer, @Inject(FORM_ERRORS) private errors: any) {}
 
-  ngOnInit(): void {
-    this.updateCardModel('img');
-    console.log(this.cardModel);
-  }
+  // ngOnInit(): void {
+  //   this.updateCardModel(this.defaultPreview);
+  // }
 
   onChange: any = () => {};
 
@@ -82,5 +82,12 @@ export class CardInputComponent implements OnInit, ControlValueAccessor {
 
   onSelectImage($event: MouseEvent) {
     $event.preventDefault();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes', changes);
+    if (changes.defaultPreview && changes.defaultPreview.currentValue) {
+      this.updateCardModel(changes.defaultPreview.currentValue);
+    }
   }
 }

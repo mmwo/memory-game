@@ -1,9 +1,130 @@
-app-card-input,
-.new-card {
-  float: left;
+label {
+  margin-bottom: 0;
+}
+
+.upper-form {
+  margin: -16px;
+  background: #fff;
+  z-index: 1;
+  width: calc(100% - 320px);
+  max-width: inherit;
+  position: fixed;
+  box-shadow: 0 3px 3px 0 #a0a0a026;
+}
+
+.upper-form-header {
+  .input-wrapper {
+    margin-top: 2px;
+  }
+
+  .upper-form-input {
+    margin-right: -128px;
+  }
+}
+
+.submit-section {
+  max-width: 128px;
+  position: relative;
+}
+
+.cards {
+  padding: 145px 10px 10px 10px;
+  display: grid; /* 1 */
+  grid-template-columns: repeat(auto-fill, 260px); /* 2 */
+  grid-gap: 1rem; /* 3 */
+  justify-content: space-between; /* 4 */
+  app-card-input {
+    height: 320px;
+  }
+  .new-card {
+    font-size: 68px;
+  }
 }
 
 .new-card {
   cursor: pointer;
   color: grey;
+}
+
+.submit-btn {
+  border: solid 2px white;
+  box-shadow: 0 0 0 2px #2ca8ff;
+  font-family: PottaOne;
+  font-size: 16px;
+  width: 85%;
+  margin-right: 12px;
+  padding-top: 10px;
+  padding-bottom: 14px;
+  height: 46px;
+}
+
+@media screen and (max-width: 991px) {
+  .upper-form {
+    width: calc(100% - 60px);
+  }
+}
+
+@media screen and (max-width: 1040px) {
+  .upper-form-header {
+    .h5 {
+      font-size: 1.4em;
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .upper-form {
+    width: calc(100% + 32px);
+    position: relative;
+    padding-bottom: 10px;
+  }
+  .cards {
+    margin: 0 -10px 0 -10px;
+    padding: 30px 0 0 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .new-card {
+      height: 50px;
+      font-size: 40px;
+      border-radius: 10px;
+      box-sizing: border-box;
+      background: #a0a0a0;
+      color: white;
+    }
+  }
+
+  .upper-form-header {
+    .h5 {
+      font-weight: bold;
+      font-size: 1em;
+      padding-top: 6px;
+    }
+  }
+  .submit-btn {
+    height: 30px;
+    padding-top: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+@media screen and (min-width: 602px) and (max-width: 660px) {
+  app-card-input:last-of-type:nth-child(odd) {
+    margin-right: calc(100% - 232px);
+  }
+}
+@media screen and (max-width: 321px) {
+  .upper-form {
+    .col:first-child {
+      padding-left: 5px;
+    }
+  }
+  .upper-form-header {
+    .h5 {
+      padding-top: 2px;
+    }
+  }
 }

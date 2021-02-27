@@ -19,7 +19,8 @@ import { memoryReducer } from '@app/memory/store/memory.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { MemoryEffects } from '@app/memory/store/memory.effects';
 import { CardInputComponent } from './components/card-input/card-input.component';
-
+// import { NgToggleModule } from '@nth-cloud/ng-toggle';
+import { NgToggleModule } from 'ng-toggle-button';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,6 +30,7 @@ import { CardInputComponent } from './components/card-input/card-input.component
     ToastrModule,
     ReactiveFormsModule,
     NgSelectModule,
+    NgToggleModule,
     StoreModule.forFeature('memory', memoryReducer),
     EffectsModule.forFeature([MemoryEffects]),
     FormsModule,

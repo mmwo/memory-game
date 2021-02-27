@@ -10,7 +10,6 @@ export class SizerDirective implements OnInit {
   @HostListener('window:resize')
   ngOnInit() {
     setTimeout(() => {
-      console.log('size', this.appSizer);
       const [width, height] = this.appSizer.split('x');
       const currentWidth = this.elRef.nativeElement.offsetWidth;
 

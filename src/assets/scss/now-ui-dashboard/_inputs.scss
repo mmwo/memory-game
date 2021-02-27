@@ -1,9 +1,59 @@
 @include form-control-placeholder($default-color, 1);
 
+.input-wrapper {
+  position: relative;
+  margin-top: 10px;
+}
+
+.form-control {
+  display: block;
+  line-height: 2em;
+  margin: 0;
+  padding-left: 10px;
+  width: 100%;
+  font-size: medium;
+  border: 1px solid #f4f4f4;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+.form-control:focus {
+  border: 1px solid #2c7ac9;
+}
+
+.control-label {
+  display: block;
+  position: absolute;
+  opacity: 0;
+  bottom: 1.1rem;
+  color: #5d5d5d;
+  transition: 0.2s ease-in-out transform;
+  font-size: 12px;
+}
+
+.form-control:placeholder-shown + .control-label {
+  visibility: hidden;
+  z-index: -1;
+  transition: 0.2s ease-in-out;
+}
+
+.form-control:not(:placeholder-shown) + .control-label,
+.form-control:focus:not(:placeholder-shown) + .control-label {
+  visibility: visible;
+  z-index: 1;
+  opacity: 1;
+  transform: translateY(-10px);
+  transition: 0.2s ease-in-out transform;
+}
+
 .form-control {
   background-color: $transparent-bg;
   border: 1px solid $light-gray;
-  border-radius: $btn-round-radius;
+  //border-radius: $btn-round-radius;
   color: $black-color;
   line-height: normal;
   font-size: $font-size-small;
