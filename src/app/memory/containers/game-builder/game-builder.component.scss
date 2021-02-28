@@ -54,8 +54,6 @@ label {
 }
 
 .submit-btn {
-  //border: solid 2px white;
-  //box-shadow: 0 0 0 2px #2ca8ff;
   font-family: PottaOne;
   font-size: 16px;
   width: 85%;
@@ -67,7 +65,7 @@ label {
 
 @media screen and (max-width: 991px) {
   .upper-form {
-    width: calc(100% - 60px);
+    width: calc(100% - 10px);
   }
   .cards {
     padding-top: 120px;

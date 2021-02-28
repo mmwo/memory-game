@@ -4,7 +4,7 @@
     [ngClass]="{ show: state.show, hide: state.hide, reveal: state.revealed }"
     (click)="onClick()"
   >
-    <div class="content flex-center" [ngSwitch]="card.type">
+    <div class="content flex-center px-0" [ngSwitch]="card.type">
       <svg
         *ngSwitchCase="'text'"
         version="1.1"
