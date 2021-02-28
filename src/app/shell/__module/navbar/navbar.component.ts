@@ -1,10 +1,14 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { I18nService } from '@app/i18n';
 import { Title } from '@angular/platform-browser';
 import { AuthenticationService } from '@app/auth';
+import { UntilDestroy, untilDestroyed } from '@core';
+import screenfull, { Screenfull } from 'screenfull';
+import o9n from 'o9n';
 
+@UntilDestroy()
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -12,11 +16,14 @@ import { AuthenticationService } from '@app/auth';
 })
 export class NavbarComponent implements OnInit {
   location: Location;
-  mobile_menu_visible: any = 0;
+  mobileMenuVisible: any = 0;
   public isCollapsed = true;
+  public toggleScreenClass = 'fa-expand';
   private toggleButton: any;
 
   private sidebarVisible: boolean;
+  private screenfull: Screenfull;
+  private orientation: ScreenOrientation;
 
   constructor(
     location: Location,
@@ -28,19 +35,36 @@ export class NavbarComponent implements OnInit {
   ) {
     this.location = location;
     this.sidebarVisible = false;
+    this.screenfull = screenfull as Screenfull;
+    this.orientation = o9n.getOrientation();
+  }
+
+  async toggleFullscreen() {
+    try {
+      this.screenfull.toggle();
+    } catch (err) {
+      alert(err);
+    }
+    if (window.isMobile()) {
+      await this.orientation.lock('portrait');
+    }
   }
 
   ngOnInit() {
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
-    this.router.events.subscribe((event) => {
+    this.router.events.pipe(untilDestroyed(this)).subscribe((event) => {
       this.sidebarClose();
       const $layer: any = document.getElementsByClassName('close-layer')[0];
       if ($layer) {
         $layer.remove();
-        this.mobile_menu_visible = 0;
+        this.mobileMenuVisible = 0;
       }
     });
+
+    this.screenfull.onchange(
+      () => (this.toggleScreenClass = this.screenfull.isFullscreen ? 'fa-compress' : 'fa-expand')
+    );
   }
 
   setLanguage(language: string) {
@@ -99,14 +123,14 @@ export class NavbarComponent implements OnInit {
     }
     const html = document.getElementsByTagName('html')[0];
 
-    if (this.mobile_menu_visible === 1) {
+    if (this.mobileMenuVisible === 1) {
       html.classList.remove('nav-open');
       if ($layer) {
         $layer.remove();
       }
       setTimeout(() => $toggle.classList.remove('toggled'), 400);
 
-      this.mobile_menu_visible = 0;
+      this.mobileMenuVisible = 0;
     } else {
       setTimeout(() => $toggle.classList.add('toggled'), 430);
 
@@ -124,7 +148,7 @@ export class NavbarComponent implements OnInit {
       // assign a function
       $layer.onclick = function () {
         html.classList.remove('nav-open');
-        this.mobile_menu_visible = 0;
+        this.mobileMenuVisible = 0;
         $layer.classList.remove('visible');
         setTimeout(() => {
           $layer.remove();
@@ -133,7 +157,7 @@ export class NavbarComponent implements OnInit {
       }.bind(this);
 
       html.classList.add('nav-open');
-      this.mobile_menu_visible = 1;
+      this.mobileMenuVisible = 1;
     }
   }
 

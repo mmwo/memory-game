@@ -1,19 +1,20 @@
-<div class="card p-3">
+<div class="card" [class.focused-enabled]="focusEnabled">
   <div class="card-body py-0">
-    <div class="card-container">
-      <app-card [card]="cardModel" class="required" animate="0"></app-card>
+    <div class="card-container pb-1 pt-3 required">
+      <app-card [card]="cardModel" [class.borders]="cardModel.type === 'text'" animate="0"></app-card>
       <div *ngIf="cardModel.type === 'img'" class="image-overlay d-flex" (click)="onSelectImage($event)">
         <p class="w-100 text-center align-self-center m-0">Select image</p>
       </div>
     </div>
-    <div class="required">
+    <div class="required py-1">
       <textarea
-        class="form-control mt-2"
+        #textarea
+        class="form-control mt-2 px-3"
         required
         rows="3"
-        placeholder="Start typing&#10;and adjust length&#10;with linebreaks"
-        (focus)="updateCardModel('text')"
-        (blur)="updateCardModel(this.defaultPreview)"
+        placeholder="Start typing&#x0a;&#x09;&#x09;&#x09;and adjust length&#x0a;&#x09;&#x09;&#x09;with linebreaks"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)"
         [ngModel]="value.text"
         (ngModelChange)="onInput($event)"
       >

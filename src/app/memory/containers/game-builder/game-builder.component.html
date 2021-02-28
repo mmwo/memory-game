@@ -10,7 +10,7 @@
               <ng-toggle
                 [value]="false"
                 [width]="70"
-                [height]="28"
+                [height]="24"
                 [margin]="2"
                 [fontSize]="14"
                 [labels]="toggleCfg.labels"
@@ -34,11 +34,14 @@
     </div>
     <div class="cards overflow-auto" formArrayName="cards">
       <app-card-input
-        *ngFor="let cardControl of cardsControl.controls"
+        class="mobile"
+        *ngFor="let cardControl of cardsControl.controls; let i = index"
+        [focusEnabled]="i === focusedCard"
+        (focused)="onFocus(i)"
         [formControl]="cardControl"
         [defaultPreview]="defaultPreview"
       ></app-card-input>
-      <div class="card new-card d-flex align-items-center justify-content-center" (click)="onAddNewCard($event)">
+      <div class="card new-card my-0 d-flex align-items-center justify-content-center" (click)="onAddNewCard($event)">
         <i class="fas fa-plus"></i>
       </div>
     </div>

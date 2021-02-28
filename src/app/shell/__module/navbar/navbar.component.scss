@@ -1,3 +1,25 @@
 .navbar {
   box-shadow: none;
+  position: fixed;
+
+  .icon-link {
+    cursor: pointer;
+    font-size: 16px;
+  }
+}
+
+nav {
+  &.bg-white {
+    .fullscreen {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .navbar-nav {
+    .fullscreen {
+      display: none;
+    }
+  }
 }

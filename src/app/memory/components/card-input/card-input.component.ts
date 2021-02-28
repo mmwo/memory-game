@@ -1,4 +1,18 @@
-import { Component, forwardRef, Inject, Input, OnChanges, OnInit, Optional, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  forwardRef,
+  Inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Optional,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ControlContainer, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Card, CardModel, ImgCardModel, TextCardModel } from '@app/memory/models';
 import { FORM_ERRORS } from '@shared/form-errors.config';
@@ -15,9 +29,11 @@ import { FORM_ERRORS } from '@shared/form-errors.config';
     },
   ],
 })
-export class CardInputComponent implements OnChanges, ControlValueAccessor {
+export class CardInputComponent implements OnInit, OnChanges, ControlValueAccessor {
   cardModel: CardModel;
+  @Input() focusEnabled = false;
   @Input() formControlName: string;
+  @Output() focused = new EventEmitter();
   @Input() disabled = false;
   @Input() defaultPreview: 'img' | 'text' = 'img';
 
@@ -33,11 +49,15 @@ export class CardInputComponent implements OnChanges, ControlValueAccessor {
 
   private _value: Card;
 
-  constructor(@Optional() private controlContainer: ControlContainer, @Inject(FORM_ERRORS) private errors: any) {}
+  @ViewChild('textarea', { static: false }) private textarea: ElementRef;
 
-  // ngOnInit(): void {
-  //   this.updateCardModel(this.defaultPreview);
-  // }
+  constructor(
+    @Optional() private controlContainer: ControlContainer,
+    @Inject(FORM_ERRORS) private errors: any,
+    private cd: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {}
 
   onChange: any = () => {};
 
@@ -80,14 +100,27 @@ export class CardInputComponent implements OnChanges, ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
+  onFocus($event: Event) {
+    this.focusEnabled = true;
+    this.focused.emit();
+    this.updateCardModel('text');
+  }
+
+  onBlur($event: Event) {
+    this.focusEnabled = false;
+    this.updateCardModel(this.defaultPreview);
+  }
+
   onSelectImage($event: MouseEvent) {
     $event.preventDefault();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes);
     if (changes.defaultPreview && changes.defaultPreview.currentValue) {
       this.updateCardModel(changes.defaultPreview.currentValue);
+    }
+    if (changes.focusEnabled && !changes.focusEnabled.firstChange && changes.focusEnabled.currentValue === false) {
+      this.textarea.nativeElement.blur();
     }
   }
 }

@@ -3,13 +3,17 @@
     <div class="navbar-wrapper">
       <div class="navbar-toggle">
         <button type="button" class="navbar-toggler" (click)="sidebarToggle()">
-          <span class="navbar-toggler-bar bar1"></span>
-          <span class="navbar-toggler-bar bar2"></span>
-          <span class="navbar-toggler-bar bar3"></span>
+          <span class="navbar-toggler-bar"></span>
+          <span class="navbar-toggler-bar"></span>
+          <span class="navbar-toggler-bar"></span>
         </button>
       </div>
       <a class="navbar-brand">{{ getTitle() }}</a>
     </div>
+    <a class="nav-link icon-link fullscreen" (click)="toggleFullscreen()"
+      ><i class="fas {{ toggleScreenClass }}"></i
+    ></a>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -23,6 +27,9 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">
       <ul class="navbar-nav">
+        <li class="nav-item fullscreen">
+          <a class="nav-link icon-link" (click)="toggleFullscreen()"><i class="fas {{ toggleScreenClass }}"></i></a>
+        </li>
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/profile', 'stats']">
             <i class="now-ui-icons media-2_sound-wave"></i>
