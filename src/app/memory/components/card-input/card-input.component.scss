@@ -7,9 +7,14 @@
     margin: 0 auto;
   }
 }
+
 textarea {
   white-space: pre-line;
+  max-height: 86px;
+  border: none !important;
+  box-shadow: none !important;
 }
+
 app-card {
   display: block;
   width: 200px;
@@ -75,6 +80,7 @@ p {
         z-index: -1;
         position: absolute;
       }
+
       &::after {
         background-color: #fff;
         content: "";

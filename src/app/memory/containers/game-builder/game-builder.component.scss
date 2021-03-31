@@ -39,7 +39,8 @@ label {
   justify-content: space-around;
 
   app-card-input,
-  .new-card {
+  .new-card,
+  .card {
     height: $cardHeight * 1px;
   }
 

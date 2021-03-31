@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import Timeout = NodeJS.Timeout;
 
 @Component({
   selector: 'app-game-builder',
@@ -29,7 +28,7 @@ export class GameBuilderComponent implements OnInit {
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
-    let handler: Timeout;
+    let handler: any;
     window.visualViewport.onresize = () => {
       if (handler) {
         clearTimeout(handler);

@@ -1,10 +1,18 @@
-<div class="board" appSizer="{{ form.value.size.className }}">
+<div class="board" [class.game]="!timer.currentTick" appSizer="{{ form.value.size.className }}">
   <div class="board-cover flex-center" *ngIf="isCompleted$ | async; else game">
-    <div class="pb-3 flex-center" [formGroup]="form">
+    <h3 class="mb-5" translate>Finieshed!</h3>
+    <div class="board-config pb-3 flex-center" [formGroup]="form">
       <label for="size" class="mb-0 mx-2">Select size</label>
-      <ng-select id="size" [items]="sizes" bindLabel="className" [clearable]="false" formControlName="size"></ng-select>
+      <ng-select
+        id="size"
+        [items]="sizes"
+        bindLabel="className"
+        [clearable]="false"
+        [searchable]="false"
+        formControlName="size"
+      ></ng-select>
       <label for="type" class="mb-0 mx-2">Select type</label>
-      <ng-select id="type" [items]="types" [clearable]="false" formControlName="type"></ng-select>
+      <ng-select id="type" [items]="types" [clearable]="false" [searchable]="false" formControlName="type"></ng-select>
     </div>
     <button class="button-bigger btn btn-info pointer" (click)="play($event)">
       <span translate>Start playing</span>
@@ -20,7 +28,7 @@
     </div>
   </ng-template>
 
-  <div class="board-footer" [class.d-none]="!timer.currentTick">
+  <div class="board-footer">
     <p class="d-inline-block mt-3">
       {{ 'Checks' | translate }}
       : {{ moves$ | async }}

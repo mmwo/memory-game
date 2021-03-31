@@ -64,11 +64,11 @@
 }
 
 .board-footer {
-  font-size: 22px;
+  font-size: 18px;
   text-align: center;
   color: #fff;
   position: absolute;
-  bottom: calc(50% - 103px);
+  top: calc(50% - 103px);
   left: 0;
   right: 0;
 }
@@ -77,9 +77,20 @@
   font-size: 14px;
   color: #000;
   position: relative;
+  top: unset;
   bottom: 0;
 }
+.game {
+  .board-cover {
+    h3 {
+      display: none;
+    }
+  }
 
+  .board-footer {
+    display: none;
+  }
+}
 .board-cover {
   position: absolute;
   width: 100%;
@@ -87,15 +98,43 @@
   background: #030303c9;
   flex-direction: column;
 
+  h3 {
+    display: block;
+  }
+  h3,
+  label {
+    color: white;
+  }
+
   .ng-select {
     min-width: 80px;
   }
+
   label {
     font-size: 22px;
-    color: white;
   }
 }
 
 .d-inline-block {
   display: inline-block;
+}
+
+@media screen and (max-width: 660px) {
+  .board-footer {
+    font-size: 14px;
+  }
+
+  .board-cover {
+    .ng-select {
+      min-width: 70px;
+    }
+
+    label {
+      font-size: 14px;
+    }
+  }
+  .board-config {
+    width: 90%;
+    margin: 0 auto;
+  }
 }
