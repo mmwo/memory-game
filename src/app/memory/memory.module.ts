@@ -20,6 +20,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { MemoryEffects } from '@app/memory/store/memory.effects';
 import { CardInputComponent } from './components/card-input/card-input.component';
 import { NgToggleModule } from 'ng-toggle-button';
+import { ImageModalComponent } from './modals/image-modal/image-modal.component';
+import { modals } from '@app/memory/modals';
+import { ImageCropperModule } from 'ngx-image-cropper';
 @NgModule({
   imports: [
     CommonModule,
@@ -33,6 +36,7 @@ import { NgToggleModule } from 'ng-toggle-button';
     StoreModule.forFeature('memory', memoryReducer),
     EffectsModule.forFeature([MemoryEffects]),
     FormsModule,
+    ImageCropperModule,
   ],
   declarations: [
     BoardComponent,
@@ -43,6 +47,9 @@ import { NgToggleModule } from 'ng-toggle-button';
     GameBuilderComponent,
     SizerDirective,
     CardInputComponent,
+    ImageModalComponent,
+    ...modals,
   ],
+  entryComponents: [...modals],
 })
 export class MemoryModule {}

@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   forwardRef,
   Inject,
   Input,
@@ -9,13 +10,17 @@ import {
   OnInit,
   Optional,
   Output,
-  EventEmitter,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Card, CardModel, ImgCardModel, TextCardModel } from '@app/memory/models';
 import { FORM_ERRORS } from '@shared/form-errors.config';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImageModalComponent } from '@app/memory/modals/image-modal/image-modal.component';
+import { combineLatest, Subscription } from 'rxjs';
+import { untilDestroyed } from '@ngneat/until-destroy';
+import { filter, startWith, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-input',
@@ -36,6 +41,7 @@ export class CardInputComponent implements OnInit, OnChanges, ControlValueAccess
   @Output() focused = new EventEmitter();
   @Input() disabled = false;
   @Input() defaultPreview: 'img' | 'text' = 'img';
+  private modalRef: Subscription;
 
   @Input()
   public set value(value: Card) {
@@ -54,7 +60,8 @@ export class CardInputComponent implements OnInit, OnChanges, ControlValueAccess
   constructor(
     @Optional() private controlContainer: ControlContainer,
     @Inject(FORM_ERRORS) private errors: any,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {}
@@ -100,19 +107,35 @@ export class CardInputComponent implements OnInit, OnChanges, ControlValueAccess
     this.disabled = isDisabled;
   }
 
-  onFocus($event: Event) {
+  onFocus() {
     this.focusEnabled = true;
     this.focused.emit();
     this.updateCardModel('text');
   }
 
-  onBlur($event: Event) {
+  onBlur() {
     this.focusEnabled = false;
     this.updateCardModel(this.defaultPreview);
   }
 
-  onSelectImage($event: MouseEvent) {
-    $event.preventDefault();
+  onSelectImage() {
+    if (this.modalRef) {
+      return;
+    }
+    const modalRef = this.modalService.open(ImageModalComponent);
+    this.modalRef = combineLatest([modalRef.dismissed.pipe(startWith('')), modalRef.closed.pipe(startWith(''))])
+      .pipe(
+        filter(([a, b]) => a !== '' || b !== ''),
+        untilDestroyed(modalRef.componentInstance)
+      )
+      .subscribe(([img]: [string, any]) => {
+        if (img) {
+          this.value = { ...this.value, img };
+          this.updateCardModel('img');
+          this.cd.detectChanges();
+        }
+        this.modalRef = null;
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

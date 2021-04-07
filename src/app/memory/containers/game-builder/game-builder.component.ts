@@ -70,12 +70,10 @@ export class GameBuilderComponent implements OnInit {
   }
 
   onChange($event: { target: { checked: boolean } }) {
-    console.log('input change', $event.target.checked);
     this.defaultPreview = $event.target.checked ? 'text' : 'img';
   }
 
   onFocus(i: number) {
     this.focusedCard = i;
-    console.log('focused: ', i);
   }
 }
